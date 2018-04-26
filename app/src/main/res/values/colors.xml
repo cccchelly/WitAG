@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="toast_bg_color">#cc000000</color>
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="theme_black_7f">#8f000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="main_color">#4faa4b</color>
+    <color name="edt_stroke_grey">#999999</color>
+    <color name="bg_grey">#e6e6e6</color>
+
+    <color name="trans">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black_50">#80000000</color>
+    <color name="black">#000000</color>
+
+    <color name="text_system">#8A000000</color>
+    <color name="text_9b9b9b">#9b9b9b</color>
+    <color name="text_999999">#999999</color>
+    <color name="text_4d4d4d">#4d4d4d</color>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_marginLeft="@dimen/dp_5"
+              android:layout_marginRight="@dimen/dp_5"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_big"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_38"
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImage="@drawable/bg_login"
+        app:placeholderImageScaleType="fitXY"
+        app:viewAspectRatio="1.3"
+        />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_main_pic_item_small"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_5"
+        android:text="2018.03.15 18:19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

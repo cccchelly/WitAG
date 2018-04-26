@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/tv_account_modify"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_account_modify"
+            android:text="账户修改"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_phone_bind"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_phone_bind"
+            android:text="绑定手机"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_photo_select"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_photo_select"
+            android:text="拍照选择"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_reset"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_original_reset"
+            android:text="恢复出厂"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/tv_ip_select"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_ip_select"
+            android:text="IP选择"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+        <TextView
+            android:id="@+id/tv_project_setting"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_project_setting"
+            android:text="地址设置"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_mode_select"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_mode_select"
+            android:text="模式选择"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_warning_select"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_warning_select"
+            android:text="报警选择"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:padding="@dimen/dp_10"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_big"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/bg_login"
+            app:placeholderImageScaleType="focusCrop"
+            />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_marginTop="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_3"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/sp_10"
+            android:text="2018.03.15 15:30"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ic_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_left"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/img_recyclerView"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/ic_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/dp_20"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape_et_search">
+            <TextView
+                android:id="@+id/tv_home_img_choose_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_20"
+                android:gravity="center"
+                android:hint="请选择查找日期"
+                android:textSize="@dimen/sp_10"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/dp_6"
+                android:src="@drawable/search"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity="center"
+                android:text="害虫品种"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:gravity="center"
+                android:text="生长阶段"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:gravity="center"
+                android:text="害虫数量"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/info_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>
