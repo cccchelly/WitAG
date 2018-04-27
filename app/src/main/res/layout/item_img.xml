@@ -15,6 +15,7 @@
         app:actualImageScaleType="centerCrop"
         app:placeholderImage="@drawable/bg_login"
         app:placeholderImageScaleType="fitXY"
+        app:fadeDuration="1000"
         app:viewAspectRatio="1.3"
         />
 

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -104,4 +106,12 @@ public class HomeFragment extends BaseFragment<HomePresenter, IHomeView> impleme
         return null;
     }
 
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.activity_anim_in);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
+        }
+    }
 }

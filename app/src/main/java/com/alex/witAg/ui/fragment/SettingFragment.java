@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
 import com.alex.witAg.presenter.SettingPresenter;
 import com.alex.witAg.presenter.viewImpl.ISettingView;
+import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.ToastUtils;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -75,36 +78,42 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_account_modify:  //账户修改（平板密码）
+                tvSetAccount.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()) {
                     ARouter.getInstance().build(AppContants.ARouterUrl.SET_ACCOUNT_ACTIVITY)
                             .navigation();
                 }
                 break;
             case R.id.tv_project_setting:
+                tvPojectSetting.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()){
                     ARouter.getInstance().build(AppContants.ARouterUrl.SET_COMPANY_URL_ACTIVITY)
                             .navigation();
                 }
                 break;
             case R.id.tv_ip_select:
+                tvSetIp.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()) {
                     ARouter.getInstance().build(AppContants.ARouterUrl.SETIP_ACTIVITY)
                             .navigation();
                 }
                 break;
             case R.id.tv_reset:
+                tvReset.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()) {
                     ARouter.getInstance().build(AppContants.ARouterUrl.RESET_ACTIVITY)
                             .navigation();
                 }
                 break;
             case R.id.tv_phone_bind:
+                tvPhoneBind.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()) {
                     ARouter.getInstance().build(AppContants.ARouterUrl.BIND_PHONE_ACTIVITY)
                             .navigation();
                 }
                 break;
             case R.id.tv_photo_select: //拍照选择
+                tvPhotoSetting.startAnimation(MyAnimUtil.alphHalf2All());
                 if (isCheckPass()) {
                     ARouter.getInstance().build(AppContants.ARouterUrl.TASK_SETTING_ACTIVITY)
                             .navigation();
@@ -161,6 +170,15 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     @Override
     public void hideDialogCheckPass() {
         dialogCheckPass.dismiss();
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.activity_anim_in);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
+        }
     }
 
 }

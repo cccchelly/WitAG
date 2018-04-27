@@ -10,6 +10,8 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.alex.witAg.bean.PhotoDetailRecodeBean;
 import com.alex.witAg.bean.PicListBean;
 import com.alex.witAg.presenter.HomeImgPresenter;
 import com.alex.witAg.presenter.viewImpl.IHomeImgView;
+import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.TimeUtils;
 import com.alex.witAg.utils.ToastUtils;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -178,10 +181,12 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
             simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    simpleDraweeView.startAnimation(MyAnimUtil.alphHalf2All());
                     if (null!=listBean.getUrl()) {
                         Log.i(TAG,listBean.getUrl());
                         mTvDate.setText(listBean.getName());
                         mSdvBig.setImageURI(Uri.parse(listBean.getUrl()));
+                        mSdvBig.startAnimation(MyAnimUtil.alph02All());
                         getPresenter().getRecode(listBean.getId()+"");
                     }
                 }
@@ -198,11 +203,35 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
 
         @Override
         protected void convert(BaseViewHolder helper, PhotoDetailRecodeBean.RecordBean recordBean) {
-            helper.setText(R.id.tv_main_info_kind,recordBean.getPestType()); //害虫品种
-            helper.setText(R.id.tv_main_info_level,recordBean.getPosition());  //生长阶段
+            String detailStr = recordBean.getPestType();
+            String type = "", stage = "",sex = "";
+
+            if (!TextUtils.isEmpty(detailStr)){
+                String[] details = detailStr.split("-");
+                if (details.length>=3){
+                    type = details[0];
+                    stage = details[1];
+                    if (TextUtils.equals(details[2],"1")){
+                        sex="雌性";
+                    }else if (TextUtils.equals(details[2],"2")){
+                        sex = "雄性";
+                    }
+                }
+            }
+            helper.setText(R.id.tv_main_info_kind,type); //害虫品种
+            helper.setText(R.id.tv_main_info_level,stage);  //生长阶段
+            helper.setText(R.id.tv_main_info_sex,sex);   //性别
             helper.setText(R.id.tv_main_info_count,recordBean.getCount()+""); //害虫数量
         }
     }
 
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.right2left);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
+        }
+    }
 
 }

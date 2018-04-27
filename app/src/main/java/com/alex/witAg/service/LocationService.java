@@ -13,6 +13,7 @@ import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.bean.PostLocationResponseBean;
 import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.http.network.Net;
+import com.alex.witAg.utils.ShareUtil;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -61,6 +62,8 @@ public class LocationService extends Service {
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);//定位时间
+                        ShareUtil.saveLatitude(amapLocation.getLatitude());
+                        ShareUtil.saveLongitude(amapLocation.getLongitude());
                         postLocation(amapLocation.getLatitude(),amapLocation.getLongitude());
                         Log.i(TAG,"Longitude="+amapLocation.getLongitude()+",Latitude="+amapLocation.getLatitude());
                     } else {

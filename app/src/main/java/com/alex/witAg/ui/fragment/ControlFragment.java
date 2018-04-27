@@ -22,6 +22,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -45,6 +47,7 @@ import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.DensityUtil;
 import com.alex.witAg.utils.DevicesLoginUtil;
 import com.alex.witAg.utils.FileUtils;
+import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
 import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.TimeUtils;
@@ -216,71 +219,101 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
         switch (view.getId()) {
             case R.id.tv_rise:
-                if (!App.getIsTaskRun()) {
-                    if (getPresenter().isRun) {
-                        ToastUtils.showToast("机器运行中，请稍后操作");
-                    } else {
-                        captureTaskUtil.send(SerialInforStrUtil.getRiseStr());  //1
-                    }
-                }else {
-                    ToastUtils.showToast("定时任务执行中，请稍后再试");
-                }
+                rise();
                 break;
             case R.id.tv_decline:
-                if (!App.getIsTaskRun()) {
-                    if (getPresenter().isRun) {
-                        ToastUtils.showToast("机器运行中，请稍后操作");
-                    } else {
-                        captureTaskUtil.send(SerialInforStrUtil.getDeclineStr()); //2
-                    }
-                }else {
-                    ToastUtils.showToast("定时任务执行中，请稍后再试");
-                }
+                decline();
                 break;
             case R.id.tv_take_photo:
-                //拍照
-                if (!App.getIsTaskRun()) {
-                    if (captureTaskUtil.isCaptureOpen()) {
-                        captureTaskUtil.login();
-                        captureTaskUtil.capture(CaptureTaskUtil.FROM_Hand);
-                        //getPresenter().clossCapture();
-                    }else {
-                        ToastUtils.showToast("请先打开相机");
-                    }
-                    /*captureTaskUtil.login();
-                    captureTaskUtil.capture(CaptureTaskUtil.FROM_Hand);*/
-                }else {
-                    ToastUtils.showToast("定时任务执行中，请稍后再试");
-                }
+                takePhoto();
                 break;
             case R.id.ic_reset:
-                if (!App.getIsTaskRun()) {
-                    if (getPresenter().isRun) {
-                        ToastUtils.showToast("机器运行中，请稍后操作");
-                    } else {
-                        captureTaskUtil.send(SerialInforStrUtil.getResetStr()); //0
-                    }
-                }else {
-                    ToastUtils.showToast("定时任务执行中，请稍后再试");
-                }
+               toReset();
                 break;
             case R.id.ic_open:
-                if (!App.getIsTaskRun()) {
-                    if (!captureTaskUtil.isCaptureOpen()) {
-                        captureTaskUtil.openCapture();
-                    } else {
-                        ToastUtils.showToast("相机已打开");
-                    }
-                }else {
-                    ToastUtils.showToast("定时任务执行中，请稍后再试");
-                }
+               toOpen();
                 break;
             case R.id.tv_serial:
-                getPresenter().restLocalMsg();
-                //captureTaskUtil.sendSure(SerialInforStrUtil.getRestartStr());
-                //getPresenter().getDeviceList();
+                resetLocal();
                 break;
         }
+    }
+
+    private boolean isDeviceRun(){
+        if (getPresenter().isRun){
+            ToastUtils.showToast("机器运行中，请稍后操作");
+            return true;
+        }else {
+            return false;
+        }
+    }
+    private boolean isTaskRun(){
+        if (App.getIsTaskRun()){
+            ToastUtils.showToast("定时任务执行中，请稍后再试");
+            return true;
+        }else {
+            return false;
+        }
+    }
+    private boolean isCapOpen(){
+        if (captureTaskUtil.isCaptureOpen()){
+            ToastUtils.showToast("相机已打开");
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private void resetLocal() {
+        mTvSearal.startAnimation(MyAnimUtil.alphHalf2All());
+        getPresenter().restLocalMsg();
+        //captureTaskUtil.sendSure(SerialInforStrUtil.getRestartStr());
+        //getPresenter().getDeviceList();
+    }
+
+    private void toOpen() {
+        mTvOpen.startAnimation(MyAnimUtil.alphHalf2All());
+        if (!isTaskRun()&&!isCapOpen()) {
+            new Thread(() -> captureTaskUtil.openCapture()).start();
+        }
+    }
+
+    private void toReset() {
+        mIcReset.startAnimation(MyAnimUtil.alphHalf2All());
+        if (!isTaskRun()&&!isDeviceRun()) {
+                new Thread(() -> captureTaskUtil.send(SerialInforStrUtil.getResetStr())).start();
+        }
+    }
+
+    private void takePhoto() {
+        mTvTakePhoto.startAnimation(MyAnimUtil.alphHalf2All());
+        //拍照
+        if (!isTaskRun()) {
+            if (captureTaskUtil.isCaptureOpen()) {
+                captureTaskUtil.login();
+                captureTaskUtil.capture(CaptureTaskUtil.FROM_Hand);
+                //getPresenter().clossCapture();
+            }else {
+                ToastUtils.showToast("请先打开相机");
+            }
+                    /*captureTaskUtil.login();
+                    captureTaskUtil.capture(CaptureTaskUtil.FROM_Hand);*/
+        }
+    }
+
+    private void decline() {
+        mTvDecline.startAnimation(MyAnimUtil.alphHalf2All());
+        if (!isTaskRun()&&!isDeviceRun()) {
+                new Thread(() -> captureTaskUtil.send(SerialInforStrUtil.getDeclineStr())).start();
+        }
+    }
+
+    private void rise() {
+        mTvRise.startAnimation(MyAnimUtil.alphHalf2All());
+        if (!isTaskRun()&&!isDeviceRun()) {
+            new Thread(() -> captureTaskUtil.send(SerialInforStrUtil.getRiseStr())).start();
+        }
+
     }
 
     @Override
@@ -355,6 +388,15 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
             mSeraSwtBtn.openSwitch();
         }else {
             mSeraSwtBtn.closeSwitch();
+        }
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.activity_anim_in);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
         }
     }
 

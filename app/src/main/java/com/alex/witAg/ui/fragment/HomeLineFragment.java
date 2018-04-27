@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
@@ -189,5 +191,14 @@ public class HomeLineFragment extends BaseFragment<HomeLinePresenter, IHomeLineV
     @Override
     protected View getStatusTargetView() {
         return null;
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.right2left);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
+        }
     }
 }

@@ -7,7 +7,6 @@ package com.alex.witAg.utils.eventbus;
  */
 
 public interface EventCons {
-
     String ADDRESS_REFRESH = "address_refresh";//新增收货地址通知列表刷新
     String UPDATE_NAME = "update_name";//修改昵称通知前一个页面刷新
     String SWITCH_COMMENT = "switch_comment";//商品页切换到评价页面

@@ -45,9 +45,33 @@ public class ShareUtil {
     private static final String DeviceBatvol = "DeviceBatvol"; //电池电压
     private static final String DeviceSunvol = "DeviceSunvol"; //太阳能电压
 
+    private static final String LocationLongitude = "LocationLongitude"; //定位Longitude
+    private static final String LocationLatitude = "LocationLatitude"; //定位Latitude
+
     public static SharedPreferences getShare(){
         SharedPreferences sharedPreferences = App.getAppContext().getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         return sharedPreferences;
+    }
+
+    //存储经纬度
+    public static  void saveLatitude(double la){
+        SharedPreferences.Editor editor = getShare().edit();
+        editor.putFloat(LocationLatitude, (float) la);
+        editor.commit();
+    }
+    public static double getLatitude(){
+        float la = getShare().getFloat(LocationLatitude, 0f);
+        return la;
+    }
+
+    public static  void saveLongitude(double lo){
+        SharedPreferences.Editor editor = getShare().edit();
+        editor.putFloat(LocationLongitude, (float) lo);
+        editor.commit();
+    }
+    public static double getLongitude(){
+        float lo = getShare().getFloat(LocationLongitude, 0f);
+        return lo;
     }
 
     // 相机状态

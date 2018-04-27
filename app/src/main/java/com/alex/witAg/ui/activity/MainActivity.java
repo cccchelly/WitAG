@@ -103,6 +103,7 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
         mLeftTabView.setOnSelectedChangeListener((view, position) -> {
             Logger.d("position:  " +position);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             switch (position) {
                 //首页
                 case 0:
@@ -160,6 +161,7 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
      */
     private void initFragment(Bundle savedInstanceState) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         int currentTabPosition = 0;
         if (savedInstanceState != null) {//内存重启
             mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("HomeFragment");
@@ -167,7 +169,6 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
             mDataFragment = (DataFragment) getSupportFragmentManager().findFragmentByTag("DataFragment");
             mControlFragment = (ControlFragment) getSupportFragmentManager().findFragmentByTag("ControlFragment");
             mAboutFragment = (AboutFragment) getSupportFragmentManager().findFragmentByTag("AboutFragment");
-
             currentTabPosition = savedInstanceState.getInt(AppContants.HOME_CURRENT_TAB_POSITION);
         } else {
             mHomeFragment = new HomeFragment();
@@ -175,7 +176,6 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
             mDataFragment = new DataFragment();
             mControlFragment = new ControlFragment();
             mAboutFragment = new AboutFragment();
-
             transaction.add(R.id.fl_container, mHomeFragment, "HomeFragment");
             transaction.add(R.id.fl_container, mSettingFragment, "SettingFragment");
             transaction.add(R.id.fl_container, mDataFragment, "DataFragment");

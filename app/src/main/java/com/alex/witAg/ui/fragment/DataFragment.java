@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.alex.witAg.App;
@@ -56,10 +58,11 @@ public class DataFragment extends BaseFragment<DataPresenter, IDataView> impleme
     }
 
     private void setStatues() {
-        /*tvCaptureStatus.setText("");
-        tvBatvolStatus.setText(App.getDeviceBatvol());
-        tvSunvvolStatus.setText(App.getDeviceSunvol());
-        tvDianjiStatus.setText(ShareUtil.getDeviceStatue());*/
+        tvCaptureStatus.setText("");
+        tvBatvolStatus.setText(ShareUtil.getDeviceBatvol());
+        tvSunvvolStatus.setText(ShareUtil.getDeviceSunvol());
+        tvDianjiStatus.setText(ShareUtil.getDeviceStatue());
+
     }
 
     private void initSwitchListener() {
@@ -105,4 +108,14 @@ public class DataFragment extends BaseFragment<DataPresenter, IDataView> impleme
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter){
+            return AnimationUtils.loadAnimation(getActivity(),R.anim.activity_anim_in);
+        }else {
+            return super.onCreateAnimation(transit,enter,nextAnim);
+        }
+    }
+
 }
