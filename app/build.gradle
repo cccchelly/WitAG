@@ -96,6 +96,12 @@ dependencies {
     compile 'com.orhanobut:logger:2.1.1'
     compile project(':SerialPortLibrary')
     compile project(':sdk')
+
+    //leakcannary
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
     //  qiniu
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     //PickerView
@@ -112,4 +118,8 @@ dependencies {
     //baidumap
     //location
     compile 'com.amap.api:location:latest.integration'
+    //mqtt
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+    compile 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.0'
+
 }

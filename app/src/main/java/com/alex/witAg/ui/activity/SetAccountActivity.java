@@ -1,6 +1,7 @@
 package com.alex.witAg.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,8 +41,17 @@ public class SetAccountActivity extends BaseActivity<SetAccountPresenter, IsetAc
     EditText mEdtPassword;
     private String TAG = SetAccountActivity.class.getName();
 
+    private Handler handler = new Handler();
+
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.e(TAG, "Hi");
+                handler.postDelayed(this, 1000);
+            }
+        }, 6000);
     }
 
 

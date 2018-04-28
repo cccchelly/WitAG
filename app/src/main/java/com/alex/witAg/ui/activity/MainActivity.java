@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -77,8 +78,6 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
     SQLiteDatabase db= Connector.getDatabase();
 
     private static final String TAG = MainActivity.class.getName();
-
-
 
 
     @Override

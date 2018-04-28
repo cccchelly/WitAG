@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
@@ -62,6 +63,9 @@
         <meta-data android:name="com.amap.api.v2.apikey" android:value="6aa80188274e9ce4088f716da8068158">
         </meta-data>
         <service android:name="com.amap.api.location.APSService"></service>
+
+        //mqttservice
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
 
         <activity
             android:name=".ui.activity.SplashActivity"
@@ -134,20 +138,28 @@
         </receiver>
 
         <activity android:name=".ui.activity.ShowPicActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.TaskSettingActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.SetAccountActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.BindPhoneActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.ResetActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.SetIpActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.SetCompanyUrlActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.BindCompanyActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTop"></activity>
     </application>
 

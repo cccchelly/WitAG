@@ -10,6 +10,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.commonsdk.UMConfigure;
 
 import org.litepal.LitePal;
@@ -29,6 +31,8 @@ public class App extends MultiDexApplication {
         return mAppContext;
     }
 
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,6 +44,14 @@ public class App extends MultiDexApplication {
         LitePal.initialize(mAppContext);
         CrashUtil.getInstance().init(mAppContext);
         initUmeng();
+
+        refWatcher = LeakCanary.install(this);
+
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        App application = (App) context.getApplicationContext();
+        return application.refWatcher;
     }
 
     private void initUmeng() {

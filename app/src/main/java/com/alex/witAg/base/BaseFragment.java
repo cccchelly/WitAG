@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alex.witAg.App;
 import com.alex.witAg.R;
 import com.alex.witAg.http.loading.NetLoadingHelper;
 import com.alex.witAg.utils.ToastUtils;
 import com.alex.witAg.widget.VaryViewHelper;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -222,5 +224,7 @@ public abstract class BaseFragment <T extends BasePresenter<V>,V extends BaseMvp
         }
         mContext = null;
         super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }
