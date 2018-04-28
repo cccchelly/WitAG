@@ -41,17 +41,17 @@ public class SetAccountActivity extends BaseActivity<SetAccountPresenter, IsetAc
     EditText mEdtPassword;
     private String TAG = SetAccountActivity.class.getName();
 
-    private Handler handler = new Handler();
+    //private Handler handler = new Handler();   leak   check
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-        handler.postDelayed(new Runnable() {
+       /* handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Log.e(TAG, "Hi");
                 handler.postDelayed(this, 1000);
             }
-        }, 6000);
+        }, 6000);*/
     }
 
 
