@@ -80,8 +80,8 @@ public class LeftTabView extends FrameLayout{
         for (View view : views) {
             view.setBackgroundColor(Color.TRANSPARENT);
         }
-
-        views.get(position).setBackgroundColor(Color.parseColor("#4faa4b"));
+        views.get(position).setBackgroundResource(R.drawable.selection);
+        //views.get(position).setBackgroundColor(Color.parseColor("#4faa4b"));
 
         if (mListener != null) {
             mListener.onSelectedPosition(views.get(position),selectPosition);

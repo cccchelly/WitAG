@@ -60,7 +60,11 @@ public class CaptureTaskUtil implements
     private CaptureTaskUtil(){}
     public static CaptureTaskUtil instance(){
         if (captureTaskUtil==null){
-            captureTaskUtil = new CaptureTaskUtil();
+            synchronized (CaptureTaskUtil.class) {
+                if (captureTaskUtil==null) {
+                    captureTaskUtil = new CaptureTaskUtil();
+                }
+            }
         }
         return captureTaskUtil;
 
@@ -441,13 +445,13 @@ public class CaptureTaskUtil implements
 
     //发送命令打开相机
     public boolean openCapture(){
-        sendSure("<CAMsta:1,HIGHsta:0>");   //开启摄像头
+        sendSure(SerialInforStrUtil.openCamer());   //开启摄像头
         return isCaptureOpen();
     }
 
     //发送命令关闭相机
     public boolean clossCapture(){
-        sendSure("<CAMsta:0,HIGHsta:0>");
+        sendSure(SerialInforStrUtil.closeCamer());
         return isCaptureClose();
     }
 

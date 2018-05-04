@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.alex.witAg.App;
 import com.alex.witAg.service.CaptureService;
 import com.alex.witAg.service.LocationService;
+import com.alex.witAg.service.MqttService;
 import com.alex.witAg.service.PostPicService;
 import com.alex.witAg.service.UpdateService;
 import com.alex.witAg.ui.activity.MainActivity;
@@ -24,6 +25,8 @@ public class TaskServiceUtil {
         App.getAppContext().startService(updateIntent);*/
         Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
         App.getAppContext().startService(locationIntent);
+        Intent mqttIntent = new Intent(App.getAppContext(), MqttService.class);
+        App.getAppContext().startService(mqttIntent);
     }
 
     public static void stopTasks(){

@@ -16,11 +16,9 @@ public class SerialInforStrUtil {
     public static String getRiseStr(){
         return  "{sta:1}";
     }
-
     public static String getDeclineStr(){
         return  "{sta:2}";
     }
-
     public static String getResetStr(){
         return  "{sta:0}";
     }
@@ -42,6 +40,12 @@ public class SerialInforStrUtil {
     }
     public static String getHighStr5(){
         return  "<CAMsta:0,HIGHsta:5>";
+    }
+    public static String openCamer(){
+        return  "<CAMsta:1,HIGHsta:0>";
+    }
+    public static String closeCamer(){
+        return  "<CAMsta:0,HIGHsta:0>";
     }
 
     public static Map<String,String> getBackMapInfo(String info){  //将返回的信息串拆分为map形式

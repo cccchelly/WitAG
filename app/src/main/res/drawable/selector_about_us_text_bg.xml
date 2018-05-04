@@ -3,7 +3,9 @@
 <item>
     <shape >
         <corners android:radius="@dimen/dp_5"/>
-        <solid android:color="@color/main_color"/>
+        <gradient android:startColor="#3fb586"
+            android:endColor="#4aaeeb"
+            android:type="linear"/>
     </shape>
 </item>
 </selector>

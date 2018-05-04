@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,19 +95,17 @@ import butterknife.OnClick;
 
 public class ControlFragment extends BaseFragment<ControlPresenter, IControlView>  implements IControlView{
     @BindView(R.id.tv_rise)
-    TextView mTvRise;
+    LinearLayout mTvRise;
     @BindView(R.id.tv_decline)
-    TextView mTvDecline;
+    LinearLayout mTvDecline;
     @BindView(R.id.tv_take_photo)
-    TextView mTvTakePhoto;
+    LinearLayout mTvTakePhoto;
     @BindView(R.id.ic_reset)
-    TextView mIcReset;
+    LinearLayout mIcReset;
     @BindView(R.id.tv_serial)
     TextView mTvSearal;
-    @BindView(R.id.et_serial_info)
-    EditText mEtSerialInfo;
     @BindView(R.id.ic_open)
-    TextView mTvOpen;
+    LinearLayout mTvOpen;
     @BindView(R.id.control_spinner)
     NiceSpinner spinner;
     @BindView(R.id.control_swtbtn)
@@ -314,16 +313,6 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
             new Thread(() -> captureTaskUtil.send(SerialInforStrUtil.getRiseStr())).start();
         }
 
-    }
-
-    @Override
-    public String getSerialInfo() {
-        return mEtSerialInfo.getText().toString();
-    }
-
-    @Override
-    public void showSerialInfoEmpty() {
-        ToastUtils.showToast("发送数据不能为空！");
     }
 
     @Override

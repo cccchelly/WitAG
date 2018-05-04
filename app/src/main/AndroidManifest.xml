@@ -123,6 +123,11 @@
                 <action android:name="location"/>
             </intent-filter>
         </service>
+        <service android:name=".service.MqttService">
+            <intent-filter>
+                <action android:name="mqtt"/>
+            </intent-filter>
+        </service>
 
         <receiver android:name=".receiver.UpdateReStartReceiver">
             <intent-filter>

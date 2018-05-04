@@ -7,7 +7,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.alex.witAg.bean.MqttMsgBean;
+import com.alex.witAg.utils.CaptureTaskUtil;
+import com.alex.witAg.utils.SerialInforStrUtil;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -18,6 +25,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
 
 /**
  * Created by Administrator on 2018-04-27.
@@ -30,16 +38,19 @@ public class MqttService extends Service {
     private static MqttAndroidClient client;
     private MqttConnectOptions conOpt;
 
-    //    private String host = "tcp://10.0.2.2:61613";
-    private String host = "tcp://192.168.1.103:61613";
+    //mosquitto_sub -t HelloWord -h 59.110.240.44
+
+    private String host = "tcp://59.110.240.44:1883";
     private String userName = "admin";
     private String passWord = "password";
-    private static String myTopic = "topic";
+    private static String myTopic = "HelloWord";
     private String clientId = "test";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG,"mqttService---Start");
         init();
+        //dealMsg("{\"o\":\"op_camera\",\"d\":{\"cmd\":\"close\"}}");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -152,6 +163,7 @@ public class MqttService extends Service {
             String str2 = topic + ";qos:" + message.getQos() + ";retained:" + message.isRetained();
             Log.i(TAG, "messageArrived:" + str1);
             Log.i(TAG, str2);
+            dealMsg(str1);
         }
 
         @Override
@@ -164,6 +176,69 @@ public class MqttService extends Service {
             // 失去连接，重连
         }
     };
+
+    //处理收到的消息
+    private void dealMsg(String msg) {
+        if (TextUtils.isEmpty(msg)){
+            return;
+        }
+        try {
+            MqttMsgBean msgBean = new Gson().fromJson(msg,MqttMsgBean.class);
+            String oprate = msgBean.getO();
+            if (!TextUtils.isEmpty(oprate)){
+               switch (oprate){   //判断操作类型
+                   case "op_camera":  //相机
+                       dealCmdStr(msgBean.getD().getCmd());
+                       break;
+                   case "op_board": // 沾虫板
+                       dealCmdStr(msgBean.getD().getCmd());
+                       break;
+               }
+            }
+        }catch (JsonSyntaxException e){
+            e.printStackTrace();
+        }
+
+    }
+    /*根据需要发送的消息类型选择对应的消息给串口*/
+    private void dealCmdStr(String cmd) {
+        CaptureTaskUtil captureTaskUtil = CaptureTaskUtil.instance();
+        switch (cmd){
+            case "open":   //打开相机
+                captureTaskUtil.sendSure(SerialInforStrUtil.openCamer());
+                break;
+            case "close": //关闭相机
+                captureTaskUtil.sendSure(SerialInforStrUtil.closeCamer());
+                break;
+            case "positive": //正面
+                captureTaskUtil.sendSure(SerialInforStrUtil.getRiseStr());
+                break;
+            case "opposite": //反面
+                captureTaskUtil.sendSure(SerialInforStrUtil.getDeclineStr());
+                break;
+            case "reset":   //重置
+                captureTaskUtil.sendSure(SerialInforStrUtil.getResetStr());
+                break;
+            case "force_reset": //强制重置
+                captureTaskUtil.sendSure(SerialInforStrUtil.getRestartStr());
+                break;
+            case "high1":   //调节到高度1
+                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr1());
+                break;
+            case "high2":   //调节到高度2
+                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr2());
+                break;
+            case "high3":   //调节到高度3
+                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr3());
+                break;
+            case "high4":   //调节到高度4
+                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr4());
+                break;
+            case "high5":   //调节到高度5
+                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr5());
+                break;
+        }
+    }
 
     /** 判断网络是否连接 */
     private boolean isConnectIsNomarl() {

@@ -78,7 +78,7 @@ public class ShareUtil {
     public static void saveCaptureCamSta(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(CaptureCamSta,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getCaptureCamSta(){
         String sta = getShare().getString(CaptureCamSta,"0");
@@ -89,7 +89,7 @@ public class ShareUtil {
     public static void saveCaptureHignSta(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(CaptureHignSta,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getCaptureHignSta(){
         String sta = getShare().getString(CaptureHignSta,"1");
@@ -100,7 +100,7 @@ public class ShareUtil {
     public static void saveCaptureErrorSta(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(CaptureErrorSta,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getCaptureErrorSta(){
         String sta = getShare().getString(CaptureErrorSta,"0");
@@ -111,7 +111,7 @@ public class ShareUtil {
     public static void saveDeviceStatue(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(DeviceStatue,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getDeviceStatue(){
         String sta = getShare().getString(DeviceStatue,"0");
@@ -122,7 +122,7 @@ public class ShareUtil {
     public static void saveDeviceError(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(DeviceError,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getDeviceError(){
         String sta = getShare().getString(DeviceError,"0");
@@ -133,7 +133,7 @@ public class ShareUtil {
     public static void saveDeviceBatvol(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(DeviceBatvol,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getDeviceBatvol(){
         String sta = getShare().getString(DeviceBatvol,"0");
@@ -144,7 +144,7 @@ public class ShareUtil {
     public static void saveDeviceSunvol(String sta){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(DeviceSunvol,sta);
-        editor.commit();
+        editor.apply();
     }
     public static String getDeviceSunvol(){
         String sta = getShare().getString(DeviceSunvol,"0");
@@ -156,7 +156,7 @@ public class ShareUtil {
     public static void saveCompanyBaseUrl(String url){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(COMPANY_BASE_URL,url);
-        editor.commit();
+        editor.apply();
     }
     public static String getCompanyBaseUrl(){
         String url = getShare().getString(COMPANY_BASE_URL,"-1");
@@ -171,7 +171,7 @@ public class ShareUtil {
     public static void saveCompanyUser(String user){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(BindCompany,user);
-        editor.commit();
+        editor.apply();
     }
     public static String getCompanyUser(){
         String url = getShare().getString(BindCompany,"-1");
@@ -184,14 +184,14 @@ public class ShareUtil {
     public static void cleanBindComMsg(){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(BindCompany,"-1");
-        editor.commit();
+        editor.apply();
     }
 
     // token
     public static void saveToken(String token){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(TOKEN,token);
-        editor.commit();
+        editor.apply();
     }
     public static String getToken(){
         String token = getShare().getString(TOKEN,"");
@@ -204,14 +204,14 @@ public class ShareUtil {
     public static void cleanToken(){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(TOKEN,"");
-        editor.commit();
+        editor.apply();
     }
 
     //设备loginId
     public static void saveLoginId(int loginId){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putInt(LOGIN_ID,loginId);
-        editor.commit();
+        editor.apply();
     }
     public static int getLoginId(){
        return getShare().getInt(LOGIN_ID,-1);
@@ -221,7 +221,7 @@ public class ShareUtil {
     public static void saveChannel(int channel){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putInt(CHANNEL,channel);
-        editor.commit();
+        editor.apply();
     }
     public static int getChannel(){
         return getShare().getInt(CHANNEL,-1);
@@ -231,7 +231,7 @@ public class ShareUtil {
     public static void saveTaskTime(int time){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putInt(TIME_TASK,time);
-        editor.commit();
+        editor.apply();
     }
     public static int getTaskTime(){
         int time = getShare().getInt(TIME_TASK,-1);
@@ -242,7 +242,7 @@ public class ShareUtil {
     public static void saveStartTaskTime(long time){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putLong(START_TIME_TASK,time);
-        editor.commit();
+        editor.apply();
     }
     public static String getStartTaskTime(){
         long time = getShare().getLong(START_TIME_TASK,-1);
@@ -253,7 +253,7 @@ public class ShareUtil {
     public static void saveCaptureQuality(int quality){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putInt(CAPTURE_QUALITY,quality);
-        editor.commit();
+        editor.apply();
     }
     public static int getCaptureQuality(){
         int quality = getShare().getInt(CAPTURE_QUALITY,0);
@@ -264,7 +264,7 @@ public class ShareUtil {
     public static void saveIp(String ip){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(STR_IP,ip);
-        editor.commit();
+        editor.apply();
     }
     public static String getIp(){
         String ip = getShare().getString(STR_IP,"-1");
@@ -275,7 +275,7 @@ public class ShareUtil {
     public static void savePort(int port){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putInt(PORT,port);
-        editor.commit();
+        editor.apply();
     }
     public static int getPort(){
         int port = getShare().getInt(PORT,-1);
@@ -286,7 +286,7 @@ public class ShareUtil {
     public static void saveUser(String user){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(USER,user);
-        editor.commit();
+        editor.apply();
     }
     public static String getUser(){
         String user = getShare().getString(USER,"-1");
@@ -297,7 +297,7 @@ public class ShareUtil {
     public static void savePass(String pass){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(PASSWORD,pass);
-        editor.commit();
+        editor.apply();
     }
     public static String getPass(){
         String pass = getShare().getString(PASSWORD,"-1");
@@ -308,7 +308,7 @@ public class ShareUtil {
     public static void saveAndroidPass(String pass){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(ANDROID_PASS,pass);
-        editor.commit();
+        editor.apply();
     }
     public static String getAndroidPass(){
         String pass = getShare().getString(ANDROID_PASS,"-1");
@@ -317,7 +317,7 @@ public class ShareUtil {
     public static void cleanAndroidPass(){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putString(ANDROID_PASS,"-1");
-        editor.commit();
+        editor.apply();
     }
     public static boolean isSetAndroidPass(){
         String pass = getShare().getString(ANDROID_PASS,"-1");
@@ -328,7 +328,7 @@ public class ShareUtil {
     public static void savePassCheckTime(long time){
         SharedPreferences.Editor editor = getShare().edit();
         editor.putLong(ANDROID_PASS_CHECK_TIME,time);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getIsPassChecked(){

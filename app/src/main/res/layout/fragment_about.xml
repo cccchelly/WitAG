@@ -8,10 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_167"
         android:layout_margin="@dimen/dp_16"
+        android:padding="16dp"
         android:background="@drawable/selector_about_us_text_bg"
-        android:text="关于我们"
+        android:text="@string/about_us_content"
         android:textColor="@color/white"
-        android:gravity="center"/>
+        android:textSize="@dimen/sp_12"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -60,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:src="@drawable/qrcode"/>
     </RelativeLayout>
 </LinearLayout>

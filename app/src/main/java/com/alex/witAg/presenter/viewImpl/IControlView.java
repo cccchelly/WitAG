@@ -18,8 +18,6 @@ import java.io.File;
  */
 
 public interface IControlView extends IBaseView{
-    String getSerialInfo();
-    void showSerialInfoEmpty();
     Activity getACtivity();
     void showDialog(DeviceAdapter mDeviceAdapter, SerialPortManager mSerialPortManager);
     void showOpenMsg(String msg);

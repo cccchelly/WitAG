@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <EditText
+    <!--<EditText
         android:visibility="gone"
         android:id="@+id/et_serial_info"
         android:layout_marginLeft="@dimen/dp_20"
@@ -15,81 +15,239 @@
         android:hint="请输入串口信息"
         android:maxLines="1"
         android:singleLine="true"
-        android:background="@drawable/shape_et_search"/>
-    <org.angmarch.views.NiceSpinner
-        android:id="@+id/control_spinner"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="@dimen/dp_20"/>
+        android:background="@drawable/shape_et_search"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="诱虫板高度"/>
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/control_spinner"
+            android:layout_marginLeft="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tv_serial"
+            android:padding="@dimen/dp_12"
+            android:textSize="@dimen/sp_14"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/clear"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="center"
+            android:text="重置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp_16"
+        >
 
-        <TextView
-            android:id="@+id/tv_rise"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableTop="@drawable/ic_rise"
-            android:text="正面"
-            android:textColor="@color/text_4d4d4d"
-            android:textSize="@dimen/sp_16"/>
-
-        <TextView
-            android:id="@+id/tv_decline"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableTop="@drawable/ic_decline"
-            android:text="反面"
-            android:textColor="@color/text_4d4d4d"
-            android:textSize="@dimen/sp_16"/>
-
-        <TextView
+        <LinearLayout
             android:id="@+id/tv_take_photo"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableTop="@drawable/ic_take_photo"
+            android:background="@drawable/op_orige"
             android:gravity="center"
-            android:text="拍照"
-            android:textColor="@color/text_4d4d4d"
-            android:textSize="@dimen/sp_16"/>
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/op_cammer"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:text="拍照"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textSize="16sp"
+                android:text="高清摄像头拍摄图片"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/ic_reset"
-            android:layout_weight="1"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableTop="@drawable/ic_reset"
-            android:text="复位"
-            android:textColor="@color/text_4d4d4d"
-            android:textSize="@dimen/sp_16"/>
-        <TextView
-            android:id="@+id/ic_open"
             android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/tv_rise"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/op_green"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/op_up"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_marginTop="56dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:text="正面"/>
+                    <TextView
+                        android:layout_marginBottom="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="诱虫板翻转到正面"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ic_reset"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/op_blue"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/op_down"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_marginTop="56dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:text="反面"/>
+                    <TextView
+                        android:layout_marginBottom="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="诱虫板翻转到反面"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="@dimen/dp_5"
-            android:drawableTop="@drawable/ic_take_photo"
-            android:text="打开"
-            android:textColor="@color/text_4d4d4d"
-            android:textSize="@dimen/sp_16"/>
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ic_open"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/op_blue"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/op_start"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_marginTop="56dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:text="启动"/>
+                    <TextView
+                        android:layout_marginBottom="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="打开遮板进行拍照"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_decline"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/op_green"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/op_reset"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_marginTop="56dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:text="复位"/>
+                    <TextView
+                        android:layout_marginBottom="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="诱虫板恢复原始位置"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
+
     <LinearLayout
         android:visibility="gone"
         android:layout_width="wrap_content"
@@ -117,17 +275,5 @@
             android:text="串口已关闭"/>
 
     </LinearLayout>
-    <!--选择串口，需求变更为初始打开相应串口-->
-    <TextView
 
-        android:id="@+id/tv_serial"
-        android:textColor="@color/white"
-        android:background="@color/main_color"
-        android:padding="@dimen/dp_12"
-        android:textSize="@dimen/sp_14"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:text="重置本地信息"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </LinearLayout>
