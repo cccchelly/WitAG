@@ -11,21 +11,24 @@ import java.util.Map;
  */
 
 public class SerialInforStrUtil {
+    public static final String STA_OPEN_POSITIVE = "1";  //相机打开并翻转正面
+    public static final String STA_OPEN_OPPOSITE = "2";  //相机打开并翻转反面
+    public static final String STA_CLOSE_RESET = "0";    //相机关闭并复位
 
-    //    {sta:x}    x=0---- 电机复位状态(诱捕状态)    x=1----  粘虫绿板正面     x=2----  粘虫绿板反面
-    public static String getRiseStr(){
+  /*   public static String getResetStaStr(){
+        return  "{sta:0}";
+    }    //复位状态匹配
+    public static String getRiseStaStr(){
         return  "{sta:1}";
-    }
+    }    //翻转到正面的状态匹配*/
     public static String getDeclineStr(){
         return  "{sta:2}";
-    }
-    public static String getResetStr(){
-        return  "{sta:0}";
-    }
-    public static String getRestartStr(){
+    }      // 翻转到反面
+    public static String getForceRestartStr(){
         return  "{sta:3}";
-    }
+    }      //强制复位
 
+    //高度调节到HIGHsta位置
     public static String getHighStr1(){
         return  "<CAMsta:0,HIGHsta:1>";
     }
@@ -41,12 +44,13 @@ public class SerialInforStrUtil {
     public static String getHighStr5(){
         return  "<CAMsta:0,HIGHsta:5>";
     }
-    public static String openCamer(){
+    public static String openCamTurnPositive(){
         return  "<CAMsta:1,HIGHsta:0>";
-    }
-    public static String closeCamer(){
+    }  //打开摄像机并翻转到正面
+
+   /* public static String closeCamer(){
         return  "<CAMsta:0,HIGHsta:0>";
-    }
+    }*/
 
     public static Map<String,String> getBackMapInfo(String info){  //将返回的信息串拆分为map形式
         Map<String,String> map = new HashMap();

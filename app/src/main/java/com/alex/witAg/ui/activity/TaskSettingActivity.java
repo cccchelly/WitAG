@@ -3,6 +3,7 @@ package com.alex.witAg.ui.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.alex.witAg.R;
 import com.alex.witAg.base.BaseActivity;
 import com.alex.witAg.presenter.TaskSettingPresenter;
 import com.alex.witAg.presenter.viewImpl.ITaskSettingView;
+import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.TimeUtils;
 import com.alex.witAg.view.EaseSwitchButton;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -55,6 +57,18 @@ public class TaskSettingActivity extends BaseActivity<TaskSettingPresenter, ITas
         initTimeDialog();
         initSpinner();
         initSwitchBtn();
+        initConfig();
+    }
+    //显示之前的配置
+    private void initConfig() {
+        long time = ShareUtil.getTaskTime();
+        if (time!=-1) {
+            mEdtTime.setText((float)time/60/60/1000+"");
+        }
+        String startTime = ShareUtil.getStartTaskTime();
+        if(!TextUtils.equals(startTime,"-1")) {
+            mTvChooseTime.setText(startTime);
+        }
     }
 
     private void initSwitchBtn() {

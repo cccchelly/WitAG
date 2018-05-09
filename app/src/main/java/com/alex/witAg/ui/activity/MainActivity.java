@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
         initFragment(savedInstanceState);
-        TaskServiceUtil.startTasks();
+        TaskServiceUtil.resetTasks();
     }
 
     private void initListener() {

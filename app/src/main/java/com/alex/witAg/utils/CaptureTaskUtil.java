@@ -10,6 +10,8 @@ import android.view.SurfaceView;
 import com.alex.witAg.App;
 import com.alex.witAg.adapter.DeviceAdapter;
 import com.alex.witAg.bean.PicPathsBean;
+import com.alex.witAg.taskqueue.SeralTask;
+import com.alex.witAg.taskqueue.TaskQueue;
 import com.alex.witAg.ui.test.PlaySurfaceView;
 import com.hikvision.netsdk.ExceptionCallBack;
 import com.hikvision.netsdk.HCNetSDK;
@@ -104,6 +106,7 @@ public class CaptureTaskUtil implements
                 .setOnSerialPortDataListener(new OnSerialPortDataListener() {
                     @Override
                     public void onDataReceived(byte[] bytes) {
+                        App.setIsWaitTaskFinish(false);
                         //String str = TextChangeUtil.ByteToString(bytes);
                         String str = TextChangeUtil.ByteToString(bytes);
                         Log.i(TAG, "onDataReceived [ byte[] ]: " + Arrays.toString(bytes));
@@ -228,78 +231,10 @@ public class CaptureTaskUtil implements
             Log.i(TAG, "onSend: 发送内容为 null");
             return;
         }
-        //命令下发控制程序，必须按照下面的顺序：1.x=1（正面）     2.x=2（反面） ，3.x=0（复位） 以上顺序不能跨序号下发命令
-        if (TextUtils.equals(data,SerialInforStrUtil.getRiseStr())){  // 1.x=1（正面）
-            if (TextUtils.equals(ShareUtil.getDeviceStatue(),"2")){
-                skipSend(SerialInforStrUtil.getResetStr(),SerialInforStrUtil.getRiseStr()); //-->0-->1
-            }else if (TextUtils.equals(ShareUtil.getDeviceStatue(),"1")){
-                Log.i(TAG,"已经是正面");
-            }else {
-                sendSure(data);
-            }
-        }else if (TextUtils.equals(data,SerialInforStrUtil.getDeclineStr())){// 2.x=2（反面）
-            if (TextUtils.equals(ShareUtil.getDeviceStatue(),"2")){
-                Log.i(TAG,"已经是反面");
-            }else if (TextUtils.equals(ShareUtil.getDeviceStatue(),"0")){
-                skipSend(SerialInforStrUtil.getRiseStr(),SerialInforStrUtil.getDeclineStr());
-            }else {
-                sendSure(data);
-            }
-        }else if (TextUtils.equals(data,SerialInforStrUtil.getResetStr())){ // 3.x=0（复位）
-            if (TextUtils.equals(ShareUtil.getDeviceStatue(),"1")){
-                skipSend(SerialInforStrUtil.getDeclineStr(),SerialInforStrUtil.getResetStr());
-            }else if (TextUtils.equals(ShareUtil.getDeviceStatue(),"0")){
-                Log.i(TAG,"已复位");
-            }else {
-                sendSure(data);
-            }
-        }
-    }
-    /* 嵌套发送数据
-    * first 首次发送状态
-    * secend 二次发送状态
-    * */
-    public void skipSend(String first,String secend){
-        Observable.just(first) //-->0
-                .map(new Function<String, String>() {
-                    @Override
-                    public String apply(String s) throws Exception {
-                        String next = "";
-                        if (sendSure(s)){
-                            for (int i=1; i<10;i++){    //查询状态是否改变
-                                Log.i(TAG,"sta="+ShareUtil.getDeviceStatue()+",s="+s);
-                                if (TextUtils.equals(s,"{sta:"+ShareUtil.getDeviceStatue()+"}")){
-                                    next = secend;
-                                }else {
-                                    Thread.sleep(1000);
-                                }
-                            }
-                        }
-                        return next;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable disposable) {
-                    }
-                    @Override
-                    public void onNext(String s) {
-                        Log.i(TAG,"next="+s);
-                        if(!TextUtils.equals("",s)){
-                            sendSure(s);
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable throwable) {
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        sendSure(data);
     }
 
-    public boolean sendSure(String data){
+    private boolean sendSure(String data){
         byte[] sendContentBytes = data.getBytes();
         boolean sendBytes = mSerialPortManager.sendBytes(sendContentBytes);
         Log.i(TAG, "onSend: sendBytes = " + sendBytes);
@@ -389,19 +324,17 @@ public class CaptureTaskUtil implements
 
     //相机是否已打开
     public boolean isCaptureOpen() {
-        /*CAMsta:x (摄像头电源控制)    x=0----摄像机电源关闭      x=1----摄像机电源开起  */
         boolean isOpen = false;
-        if (TextUtils.equals(ShareUtil.getCaptureCamSta(),"1")){
+        if (!TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)){
             isOpen = true;
         }
         return isOpen;
     }
     //持续查询相机是否已打开
     public boolean isCaptureOpenLong() {
-        /*CAMsta:x (摄像头电源控制)    x=0----摄像机电源关闭      x=1----摄像机电源开起  */
         boolean isOpen = false;
         for (int i=1; i<5*60;i++){    //查询状态是否改变  若状态未改变休眠一秒继续查询
-            if (!TextUtils.equals(ShareUtil.getCaptureCamSta(),"1")){
+            if (TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)){ //sta=0表示复位关机状态
                 Log.i("==isCapOpen==",i+"");
                 try {
                     Thread.sleep(1000);
@@ -415,22 +348,46 @@ public class CaptureTaskUtil implements
         }
         return isOpen;
     }
+    //持续查询相机是否登录成功（登录未成功则继续登录）
+    public boolean loginCaptureLong(){
+        boolean isLogined = false;
+        for (int i = 1;i<5*60;i++){
+            int errCode = login();
+            if (errCode!=0){
+                if (errCode==1){  //用户名密码错误 退出循环登录请求
+                    break;
+                }else {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else {
+                isLogined = true;
+                break;
+            }
+        }
+        return isLogined;
+    }
+    //尝试登录摄像头
+    public int loginCapture(){
+       return login();
+    }
 
     //相机是否已关闭
     public boolean isCaptureClose(){
-        /*CAMsta:x (摄像头电源控制)    x=0----摄像机电源关闭      x=1----摄像机电源开起  */
         boolean isOpen = false;
-            if (TextUtils.equals(ShareUtil.getCaptureCamSta(),"0")) {
+            if (TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)) {
                 isOpen = true;
             }
         return isOpen;
     }
-    //相机是否已关闭
+    //持续查询相机是否已关闭
     public boolean isCaptureCloseLong(){
-        /*CAMsta:x (摄像头电源控制)    x=0----摄像机电源关闭      x=1----摄像机电源开起  */
         boolean isOpen = false;
         for (int i=1; i<5*60;i++){    //查询状态是否改变  若状态未改变休眠一秒继续查询
-            if (!TextUtils.equals(ShareUtil.getCaptureCamSta(),"0")){
+            if (!TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)){
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -444,15 +401,33 @@ public class CaptureTaskUtil implements
     }
 
     //发送命令打开相机
-    public boolean openCapture(){
-        sendSure(SerialInforStrUtil.openCamer());   //开启摄像头
+    public boolean openCaptureTurnPositive(){
+        sendSure(SerialInforStrUtil.openCamTurnPositive());   //开启摄像头并翻转到正面
         return isCaptureOpen();
     }
 
-    //发送命令关闭相机
-    public boolean clossCapture(){
-        sendSure(SerialInforStrUtil.closeCamer());
-        return isCaptureClose();
+    //调节高度，必须在复位状态，若不在先强制复位
+    public void setHighAfterReset(TaskQueue taskQueue, String highString){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (!TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)) { //如果不在复位状态
+                    taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr())); //强制复位
+                }
+                for (int i = 0;i<5*60;i++){  //持续查询是否完成复位
+                    if (TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)){
+                        break;
+                    }else {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                taskQueue.add(new SeralTask(highString));   //发送高度调节指令
+            }
+        }).start();
     }
 
     //登录设备
@@ -462,13 +437,14 @@ public class CaptureTaskUtil implements
     private SurfaceView m_osurfaceView = null;
     private static PlaySurfaceView[] playView = new PlaySurfaceView[4];
 
-    public void login(){
+    private int login(){
         try {
             // login on the device
+            int errCode = loginDevice();
             ShareUtil.saveLoginId(loginDevice());
             if (ShareUtil.getLoginId() < 0) {
                 Log.e(TAG, "This device logins failed!");
-                return;
+                return errCode;
             } else {
                 Log.e(TAG, "m_iLogID=" + ShareUtil.getLoginId());
             }
@@ -476,31 +452,33 @@ public class CaptureTaskUtil implements
             ExceptionCallBack oexceptionCbf = getExceptiongCbf();
             if (oexceptionCbf == null) {
                 Log.e(TAG, "ExceptionCallBack object is failed!");
-                return;
+                return errCode;
             }
 
             if (!HCNetSDK.getInstance().NET_DVR_SetExceptionCallBack(
                     oexceptionCbf)) {
                 Log.e(TAG, "NET_DVR_SetExceptionCallBack is failed!");
-                return;
+                return errCode;
             }
 
             //                m_oLoginBtn.setText("Logout");
             Log.i(TAG,
                     "Login sucess ****************************1***************************");
+            return errCode;
 
         } catch (Exception err) {
             Log.e(TAG, "error: " + err.toString());
+            return -1;
         }
     }
 
     private int loginDevice() {
-        int iLogID = -1;
+        int errCode = -1;
         if (!initeSdk()) {
-            return iLogID;
+            return errCode;
         }
-        iLogID = loginNormalDevice();
-        return iLogID;
+        errCode = loginNormalDevice();
+        return errCode;
     }
 
     private int loginNormalDevice() {
@@ -521,7 +499,6 @@ public class CaptureTaskUtil implements
         if (iLogID < 0) {
             Log.e(TAG, "NET_DVR_Login is failed!Err:"
                     + HCNetSDK.getInstance().NET_DVR_GetLastError());
-            return -1;
         }
         Log.i(TAG,(m_oNetDvrDeviceInfoV30.byChanNum)+"");
         if (m_oNetDvrDeviceInfoV30.byChanNum > 0) {
@@ -535,7 +512,7 @@ public class CaptureTaskUtil implements
 
         Log.i(TAG, "NET_DVR_Login is Successful!");
         App.setIsNeedReLogin(false);
-        return iLogID;
+        return HCNetSDK.getInstance().NET_DVR_GetLastError();   //返回错误码
     }
 
     private ExceptionCallBack getExceptiongCbf() {

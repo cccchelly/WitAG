@@ -111,6 +111,7 @@ public class CrashUtil implements Thread.UncaughtExceptionHandler {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultCrashHandler.uncaughtException(thread, ex);
         } else {
+            ex.printStackTrace();
             AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
             Intent intent = new Intent(mContext, SplashActivity.class);

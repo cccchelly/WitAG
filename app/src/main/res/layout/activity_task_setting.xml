@@ -115,7 +115,7 @@
             android:textSize="@dimen/sp_12"
             android:background="@drawable/selector_about_us_text_bg"
             android:layout_marginRight="@dimen/dp_20"
-            android:text="确定"/>
+            android:text="开始任务"/>
         <TextView
             android:id="@+id/set_capture_tv_cancle"
             android:layout_width="@dimen/dp_108"

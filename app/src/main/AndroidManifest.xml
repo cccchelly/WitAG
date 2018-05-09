@@ -10,43 +10,41 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
 
-    <!--用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <!--用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
-    <!--用于访问网络，网络定位需要上网-->
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <!--用于读取手机当前的状态-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-    <!--用于写入缓存数据到扩展存储卡-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <!--用于申请调用A-GPS模块-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
-    <!--用于申请获取蓝牙信息进行室内定位-->
-    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
-
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name= "android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 用于写入缓存数据到扩展存储卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
-
 
     <application
         android:name=".App"
@@ -58,19 +56,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         //baidumap
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="6aa80188274e9ce4088f716da8068158">
-        </meta-data>
-        <service android:name="com.amap.api.location.APSService"></service>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="6aa80188274e9ce4088f716da8068158"></meta-data>
 
+        <service android:name="com.amap.api.location.APSService" />
         //mqttservice
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:launchMode="singleTask"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,13 +80,14 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="landscape" />
 
- <!--       <receiver
+        <!--
+            <receiver
             android:name=".utils.BootReceiver"
             android:enabled="true"
             android:exported="true"
@@ -100,8 +99,8 @@
 
                 &lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;
             </intent-filter>
-        </receiver>-->
-
+        </receiver>
+        -->
 
         <service android:name=".service.CaptureService">
             <intent-filter>
@@ -115,57 +114,67 @@
         </service>
         <service android:name=".service.UpdateService">
             <intent-filter>
-                <action android:name="update"/>
+                <action android:name="update" />
             </intent-filter>
         </service>
         <service android:name=".service.LocationService">
             <intent-filter>
-                <action android:name="location"/>
+                <action android:name="location" />
             </intent-filter>
         </service>
         <service android:name=".service.MqttService">
             <intent-filter>
-                <action android:name="mqtt"/>
+                <action android:name="mqtt" />
             </intent-filter>
         </service>
 
         <receiver android:name=".receiver.UpdateReStartReceiver">
             <intent-filter>
-                <action android:name="install_and_start"/>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <action android:name="install_and_start" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package"/>
+
+                <data android:scheme="package" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.ShowPicActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.TaskSettingActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.SetAccountActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.BindPhoneActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.ResetActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.SetIpActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.SetCompanyUrlActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-        <activity android:name=".ui.activity.BindCompanyActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".ui.activity.ShowPicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.TaskSettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SetAccountActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.BindPhoneActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.ResetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SetIpActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SetCompanyUrlActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.BindCompanyActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.activity.PositionActivity"></activity>
     </application>
 
 </manifest>

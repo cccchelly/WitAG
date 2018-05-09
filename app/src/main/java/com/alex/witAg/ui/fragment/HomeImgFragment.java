@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alex.witAg.AppContants;
 import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
 import com.alex.witAg.bean.PhotoDetailRecodeBean;
@@ -25,6 +26,8 @@ import com.alex.witAg.presenter.viewImpl.IHomeImgView;
 import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.TimeUtils;
 import com.alex.witAg.utils.ToastUtils;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
@@ -62,6 +65,8 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
     ImageView        mIcRight;
     @BindView(R.id.info_recyclerView)
     RecyclerView     mInfoRecyclerView;
+
+    private String picUrl = "";
 
     private ImageAdapter imageAdapter;
     private InfoAdapter infoAdapter;
@@ -127,7 +132,7 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
         return null;
     }
 
-    @OnClick({R.id.ic_left, R.id.ic_right,R.id.tv_home_img_choose_date})
+    @OnClick({R.id.ic_left, R.id.ic_right,R.id.tv_home_img_choose_date,R.id.sdv_big})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ic_left:
@@ -136,6 +141,15 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
                 break;
             case R.id.tv_home_img_choose_date:
                 showTimePicker();
+                break;
+            case R.id.sdv_big:
+                if (!TextUtils.isEmpty(picUrl)){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(AppContants.SHOW_PIC_URL_KEY,picUrl);
+                    ARouter.getInstance().build(AppContants.ARouterUrl.SHOW_PIC)
+                            .with(bundle)
+                            .navigation();
+                }
                 break;
         }
     }
@@ -151,6 +165,7 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
             String url = picListBean.getList().get(0).getUrl();
             if (null!=url) {
                 mSdvBig.setImageURI(Uri.parse(url));
+                picUrl = url;
             }
             getPresenter().getRecode(picListBean.getList().get(0).getId() + "");
         }else {
@@ -186,6 +201,7 @@ public class HomeImgFragment extends BaseFragment<HomeImgPresenter, IHomeImgView
                         Log.i(TAG,listBean.getUrl());
                         mTvDate.setText(listBean.getName());
                         mSdvBig.setImageURI(Uri.parse(listBean.getUrl()));
+                        picUrl = listBean.getUrl();
                         mSdvBig.startAnimation(MyAnimUtil.alph02All());
                         getPresenter().getRecode(listBean.getId()+"");
                     }

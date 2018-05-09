@@ -15,8 +15,10 @@ import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
 import com.alex.witAg.presenter.SettingPresenter;
 import com.alex.witAg.presenter.viewImpl.ISettingView;
+import com.alex.witAg.utils.CapturePostUtil;
 import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.ShareUtil;
+import com.alex.witAg.utils.TaskServiceUtil;
 import com.alex.witAg.utils.ToastUtils;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -44,7 +46,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     TextView tvPhoneBind;
     @BindView(R.id.tv_photo_select)
     TextView tvPhotoSetting;
+    @BindView(R.id.tv_warning_select)
+            TextView tvWarning;
+
     DialogPlus dialogCheckPass;
+
 
     @Override
     protected void fetchData() {
@@ -74,7 +80,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     }
 
 
-    @OnClick({R.id.tv_account_modify, R.id.tv_project_setting,R.id.tv_ip_select,R.id.tv_reset,R.id.tv_phone_bind,R.id.tv_photo_select})
+    @OnClick({R.id.tv_account_modify, R.id.tv_project_setting,R.id.tv_ip_select,R.id.tv_reset,R.id.tv_phone_bind,R.id.tv_photo_select,R.id.tv_warning_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_account_modify:  //账户修改（平板密码）
@@ -118,6 +124,10 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                     ARouter.getInstance().build(AppContants.ARouterUrl.TASK_SETTING_ACTIVITY)
                             .navigation();
                 }
+                break;
+            case R.id.tv_warning_select:
+                //TaskServiceUtil.resetTasks();
+               // CapturePostUtil.findLocalPic();
                 break;
         }
     }

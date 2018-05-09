@@ -100,6 +100,16 @@ public class App extends MultiDexApplication {
     private static boolean isOprate = false;
     private static boolean isNeedReLogin = false;  //是否需要重新登录（修改登录相机参数时需要）
 
+    private static boolean isWaitTaskFinish = false; //等待任务队列中当前任务执行完
+
+    public static boolean isIsWaitTaskFinish() {
+        return isWaitTaskFinish;
+    }
+
+    public static void setIsWaitTaskFinish(boolean isWaitTaskFinish) {
+        App.isWaitTaskFinish = isWaitTaskFinish;
+    }
+
     public static boolean isIsNeedReLogin() {
         return isNeedReLogin;
     }

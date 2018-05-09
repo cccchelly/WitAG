@@ -42,8 +42,15 @@ public class CapturePostUtil {
         List<PicPathsBean> picPaths = DataSupport.findAll(PicPathsBean.class);
         Log.i(TAG,"图片数="+picPaths.size());
         for (PicPathsBean picpath:picPaths) {
-            File file = FileUtils.getFileFromSdcard(picpath.getPath());
-            postPic(file,picpath.getPath());
+            try{
+                File file = FileUtils.getFileFromSdcard(picpath.getPath());
+                postPic(file,picpath.getPath());
+            }catch (NullPointerException e){
+                //未找到图片（如人为删除了图片），从数据库清除图片地址
+                //数据库删除文件名
+                DataSupport.deleteAll(PicPathsBean.class,"path = ?",picpath.getPath());
+            }
+
         }
     }
     private static String TAG =CapturePostUtil.class.getName();

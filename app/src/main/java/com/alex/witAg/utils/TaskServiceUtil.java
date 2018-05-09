@@ -23,8 +23,8 @@ public class TaskServiceUtil {
         App.getAppContext().startService(postIntent);*/
         /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //开启更新查询
         App.getAppContext().startService(updateIntent);*/
-        Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
-        App.getAppContext().startService(locationIntent);
+        /*Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
+        App.getAppContext().startService(locationIntent);*/
         Intent mqttIntent = new Intent(App.getAppContext(), MqttService.class);
         App.getAppContext().startService(mqttIntent);
     }
@@ -38,6 +38,8 @@ public class TaskServiceUtil {
         App.getAppContext().stopService(updateIntent);*/
         Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
         App.getAppContext().stopService(locationIntent);
+        Intent mqttIntent = new Intent(App.getAppContext(), MqttService.class);
+        App.getAppContext().stopService(mqttIntent);
     }
 
     public static  void resetTasks(){

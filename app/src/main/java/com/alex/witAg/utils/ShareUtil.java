@@ -37,10 +37,10 @@ public class ShareUtil {
     private static final String ANDROID_PASS = "android_password"; //设备密码
 
     private static final String ANDROID_PASS_CHECK_TIME = "android_password_check_time"; //平板密码校验时间
-    private static final String CaptureCamSta = "CaptureCamSta"; //相机状态
+    private static final String CaptureCamSta = "CaptureCamSta"; //相机状态  指令改变已废弃，通过设备状态判断
     private static final String CaptureHignSta = "CaptureHignSta"; //板子高度
     private static final String CaptureErrorSta = "CaptureErrorSta"; //相机错误码
-    private static final String DeviceStatue = "DeviceStatue"; //设备状态
+    private static final String DeviceStatue = "DeviceStatue"; //设备状态   1-摄像机打开并翻转到正面，2-摄像机打开并翻转到反面，0-摄像机关闭并复位
     private static final String DeviceError = "DeviceError"; //设备错误码
     private static final String DeviceBatvol = "DeviceBatvol"; //电池电压
     private static final String DeviceSunvol = "DeviceSunvol"; //太阳能电压

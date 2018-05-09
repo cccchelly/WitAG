@@ -23,7 +23,7 @@ public class NetLoadingHelper implements NetLoadingInterface {
         mDialogPlus = DialogPlus.newDialog(context)
                 .setContentHolder(mLoadingHolder)
                 .setGravity(Gravity.CENTER)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setContentBackgroundResource(Color.TRANSPARENT)
                 .setOverlayBackgroundResource(Color.TRANSPARENT)
                 .create();

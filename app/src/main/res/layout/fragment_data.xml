@@ -233,6 +233,7 @@
                 android:textColor="@color/text_4d4d4d"/>
 
             <TextView
+                android:id="@+id/data_tv_position"
                 android:layout_marginTop="@dimen/dp_40"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"

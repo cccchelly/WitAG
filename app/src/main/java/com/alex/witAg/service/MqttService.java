@@ -10,9 +10,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alex.witAg.App;
 import com.alex.witAg.bean.MqttMsgBean;
+import com.alex.witAg.taskqueue.SeralTask;
+import com.alex.witAg.taskqueue.TaskExecutor;
+import com.alex.witAg.taskqueue.TaskQueue;
+import com.alex.witAg.utils.AppMsgUtil;
 import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
+import com.alex.witAg.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -35,6 +41,8 @@ public class MqttService extends Service {
 
     public static final String TAG = MqttService.class.getSimpleName();
 
+    private TaskQueue taskQueue;
+
     private static MqttAndroidClient client;
     private MqttConnectOptions conOpt;
 
@@ -43,11 +51,13 @@ public class MqttService extends Service {
     private String host = "tcp://59.110.240.44:1883";
     private String userName = "admin";
     private String passWord = "password";
-    private static String myTopic = "HelloWord";
+    private static String myTopic = "Device/DFS/cid867184036922874";
+            //+ AppMsgUtil.getIMEI(App.getAppContext());
     private String clientId = "test";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        taskQueue = TaskQueue.getInstance();
         Log.i(TAG,"mqttService---Start");
         init();
         //dealMsg("{\"o\":\"op_camera\",\"d\":{\"cmd\":\"close\"}}");
@@ -204,40 +214,47 @@ public class MqttService extends Service {
     private void dealCmdStr(String cmd) {
         CaptureTaskUtil captureTaskUtil = CaptureTaskUtil.instance();
         switch (cmd){
-            case "open":   //打开相机
-                captureTaskUtil.sendSure(SerialInforStrUtil.openCamer());
+            case "capture":   //执行相机拍照
+                capture(captureTaskUtil);
                 break;
-            case "close": //关闭相机
-                captureTaskUtil.sendSure(SerialInforStrUtil.closeCamer());
-                break;
-            case "positive": //正面
-                captureTaskUtil.sendSure(SerialInforStrUtil.getRiseStr());
+            case "positive": //打开摄像机并翻转到正面
+                taskQueue.add(new SeralTask(SerialInforStrUtil.openCamTurnPositive()));
                 break;
             case "opposite": //反面
-                captureTaskUtil.sendSure(SerialInforStrUtil.getDeclineStr());
+                taskQueue.add(new SeralTask(SerialInforStrUtil.getDeclineStr()));
                 break;
             case "reset":   //重置
-                captureTaskUtil.sendSure(SerialInforStrUtil.getResetStr());
-                break;
-            case "force_reset": //强制重置
-                captureTaskUtil.sendSure(SerialInforStrUtil.getRestartStr());
+                taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));
                 break;
             case "high1":   //调节到高度1
-                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr1());
+                captureTaskUtil.setHighAfterReset(taskQueue,SerialInforStrUtil.getHighStr1());
                 break;
             case "high2":   //调节到高度2
-                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr2());
+                captureTaskUtil.setHighAfterReset(taskQueue,SerialInforStrUtil.getHighStr2());
                 break;
             case "high3":   //调节到高度3
-                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr3());
+                captureTaskUtil.setHighAfterReset(taskQueue,SerialInforStrUtil.getHighStr3());
                 break;
             case "high4":   //调节到高度4
-                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr4());
+                captureTaskUtil.setHighAfterReset(taskQueue,SerialInforStrUtil.getHighStr4());
                 break;
             case "high5":   //调节到高度5
-                captureTaskUtil.sendSure(SerialInforStrUtil.getHighStr5());
+                captureTaskUtil.setHighAfterReset(taskQueue,SerialInforStrUtil.getHighStr5());
                 break;
         }
+    }
+
+    private void capture(CaptureTaskUtil captureTaskUtil) {
+        new Thread(() -> {
+            int errCode = captureTaskUtil.loginCapture();  //登录摄像机
+            if (errCode==0){  //没有错误
+                captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK); //执行拍照任务
+            }else if (errCode==1){
+                Log.i(TAG,"账号密码错误！");
+            }else {
+                Log.i(TAG,"连接摄像机失败！");
+            }
+        }).start();
     }
 
     /** 判断网络是否连接 */

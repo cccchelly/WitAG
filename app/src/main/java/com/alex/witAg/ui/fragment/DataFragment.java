@@ -39,6 +39,8 @@ public class DataFragment extends BaseFragment<DataPresenter, IDataView> impleme
     TextView tvSunvvolStatus;
     @BindView(R.id.data_tv_dianji_status)
     TextView tvDianjiStatus;
+    @BindView(R.id.data_tv_position)
+    TextView tvPosition;
     Unbinder unbinder;
 
     @Override
@@ -62,7 +64,7 @@ public class DataFragment extends BaseFragment<DataPresenter, IDataView> impleme
         tvBatvolStatus.setText(ShareUtil.getDeviceBatvol());
         tvSunvvolStatus.setText(ShareUtil.getDeviceSunvol());
         tvDianjiStatus.setText(ShareUtil.getDeviceStatue());
-
+        tvPosition.setText("经度\n"+ShareUtil.getLongitude()+"\n纬度\n"+ShareUtil.getLatitude());
     }
 
     private void initSwitchListener() {

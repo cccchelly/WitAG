@@ -1,12 +1,10 @@
 package com.alex.witAg.ui.activity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.alex.witAg.AppContants;
 import com.alex.witAg.R;
@@ -14,30 +12,31 @@ import com.alex.witAg.base.BaseActivity;
 import com.alex.witAg.presenter.ShowPicsPresenter;
 import com.alex.witAg.presenter.viewImpl.IShowPicView;
 import com.alex.witAg.ui.test.CrashUtil;
-import com.alex.witAg.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
+import com.alex.witAg.view.ZoomableDraweeView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class ShowPicActivity extends BaseActivity<ShowPicsPresenter,IShowPicView> implements IShowPicView {
+@Route(path = AppContants.ARouterUrl.SHOW_PIC)
+public class ShowPicActivity extends BaseActivity<ShowPicsPresenter, IShowPicView> implements IShowPicView {
     @BindView(R.id.show_pic_img)
-    ImageView mImgPic;
+    ZoomableDraweeView mImgPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CrashUtil crashUtil = CrashUtil.getInstance();
-        crashUtil.init(this);
     }
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-
+        mImgPic.setOnClickListener(() -> onBackPressed());
     }
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
-       // getPresenter().getBitmap(bundle);
+        String url = bundle.getString(AppContants.SHOW_PIC_URL_KEY);
+        mImgPic.setImageURI(Uri.parse(url));
     }
 
     @Override
