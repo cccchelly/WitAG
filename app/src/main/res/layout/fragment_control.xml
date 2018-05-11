@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/dp_4"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:text="高清摄像头拍摄图片"/>
         </LinearLayout>
 
@@ -111,8 +111,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/dp_4"
-                android:textSize="16sp"
-                android:text="打开遮板进行拍照"/>
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="打开遮板\n并将诱虫板翻转到正面"/>
 
         </LinearLayout>
 
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/dp_4"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:text="诱虫板翻转到反面"/>
 
         </LinearLayout>
@@ -169,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/dp_4"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:text="诱虫板恢复原始位置"/>
         </LinearLayout>
 
