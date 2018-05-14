@@ -57,11 +57,15 @@ public class MqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
         taskQueue = TaskQueue.getInstance();
         Log.i(TAG,"mqttService---Start");
         init();
-        //dealMsg("{\"o\":\"op_camera\",\"d\":{\"cmd\":\"close\"}}");
-        return super.onStartCommand(intent, flags, startId);
     }
 
     public static void publish(String msg){
@@ -259,7 +263,7 @@ public class MqttService extends Service {
 
     /** 判断网络是否连接 */
     private boolean isConnectIsNomarl() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        /*ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
             String name = info.getTypeName();
@@ -268,7 +272,9 @@ public class MqttService extends Service {
         } else {
             Log.i(TAG, "MQTT 没有可用网络");
             return false;
-        }
+        }*/
+        //4g卡用检检测不到有网络，屏蔽网络检测直接连接
+        return true;
     }
 
     @Nullable

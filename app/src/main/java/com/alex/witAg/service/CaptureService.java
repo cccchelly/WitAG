@@ -34,8 +34,9 @@ public class CaptureService extends Service {
             ToastUtils.showToast(msg.obj.toString());
         }
     };
-
     Handler mHandler = new Handler();
+    private boolean isThreadRun = false;
+
     Runnable r = new Runnable() {
         @Override
         public void run() {
@@ -65,6 +66,7 @@ public class CaptureService extends Service {
                     toastOnMain("登录摄像头");
                     captureTaskUtil.loginCaptureLong();  //登录摄像头(若登录失败则重新继续登录,若账号密码错误则放弃登录)
                     if (isStatueChanged(SerialInforStrUtil.STA_OPEN_POSITIVE)) { //1
+                        sleepMills(5 * 1000);
                         Log.i(TAG,"==拍摄正面==");
                         toastOnMain("拍摄正面照片");
                         captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
@@ -105,11 +107,12 @@ public class CaptureService extends Service {
         App.setIsTaskRun(false);
         Log.e(TAG, "--------->onCreate: ");
         new Thread(() -> {
+
             //mHandler.postDelayed(r, 0);//发送请求开始执行
             while (true) {
                 String taskTime = ShareUtil.getStartTaskTime();
                 String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
-                //Log.i(TAG,"time1="+taskTime+"---time2="+nowTime);
+                Log.i(TAG,"time1="+taskTime+"---time2="+nowTime);
                 if (TextUtils.equals(taskTime, nowTime)) {
                     mHandler.postDelayed(r, 0);//发送请求开始执行
                     break;

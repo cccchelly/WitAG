@@ -258,6 +258,11 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
                 new Thread(() -> {
                     int errCode = captureTaskUtil.loginCapture();  //登录摄像机
                     if (errCode == 0) {  //没有错误
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         captureTaskUtil.capture(CaptureTaskUtil.FROM_Hand); //执行拍照任务
                     } else if (errCode == 1) {
                         getActivity().runOnUiThread(() -> ToastUtils.showToast("账号密码错误！"));

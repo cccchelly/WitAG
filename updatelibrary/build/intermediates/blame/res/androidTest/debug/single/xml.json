@@ -1,5 +1,9 @@
 [
     {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\update_cache_path.xml",
+        "source": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\bundles\\debug\\res\\xml\\update_cache_path.xml"
+    },
+    {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\update_cache_path.xml",
         "source": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\bundles\\debug\\res\\xml\\update_cache_path.xml"
     },

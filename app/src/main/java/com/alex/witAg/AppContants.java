@@ -23,7 +23,7 @@ public interface AppContants {
     String APP_TAG          = "ParkYun";
     int LOGIN_INTERCEPTOR = 401;//通过ARouter拦截登录常量
     String HOME_CURRENT_TAB_POSITION = "home_current_tab_position";
-    int TASK_DEFAULT_TIME = 60*60*1000; //定时任务默认时间ms
+    int TASK_DEFAULT_TIME = 24*60*60*1000; //定时任务默认时间ms
     String START_TASK_DEFAULT_TIME = "12:00"; //定时任务默认开始时间
     int PASS_CHECK_DEFAULT_TIME =  100000*60*1000; //默认密码验证超时时间
     String SHOW_PIC_URL_KEY = "SHOW_PIC_URL_KEY";

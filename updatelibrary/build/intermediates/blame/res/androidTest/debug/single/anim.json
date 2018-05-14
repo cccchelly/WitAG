@@ -4,36 +4,32 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_enter.xml"
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_enter.xml"
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_top.xml"
-    },
-    {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_out_top.xml"
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
         "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
@@ -48,6 +44,62 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_out_top.xml"
     },
@@ -60,23 +112,11 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_fade_in.xml"
     },
     {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_bottom.xml"
-    },
-    {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_bottom.xml"
-    },
-    {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_popup_exit.xml"
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_out_bottom.xml"
-    },
-    {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\anim\\abc_slide_in_top.xml"
     }
 ]

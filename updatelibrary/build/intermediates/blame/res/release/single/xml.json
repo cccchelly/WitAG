@@ -6,5 +6,9 @@
     {
         "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\xml\\update_cache_path.xml",
         "source": "D:\\zx\\WitAG\\updatelibrary\\src\\main\\res\\xml\\update_cache_path.xml"
+    },
+    {
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\xml\\update_cache_path.xml",
+        "source": "E:\\WaTAGInport\\WitAG\\updatelibrary\\src\\main\\res\\xml\\update_cache_path.xml"
     }
 ]

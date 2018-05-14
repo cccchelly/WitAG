@@ -63,7 +63,7 @@ public class TaskSettingActivity extends BaseActivity<TaskSettingPresenter, ITas
     private void initConfig() {
         long time = ShareUtil.getTaskTime();
         if (time!=-1) {
-            mEdtTime.setText((float)time/60/60/1000+"");
+            mEdtTime.setText((int) time/60/60/1000+"");
         }
         String startTime = ShareUtil.getStartTaskTime();
         if(!TextUtils.equals(startTime,"-1")) {

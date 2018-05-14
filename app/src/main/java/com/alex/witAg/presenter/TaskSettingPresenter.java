@@ -10,6 +10,7 @@ import com.alex.witAg.bean.PhotoSetResponseBean;
 import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.http.network.Net;
 import com.alex.witAg.presenter.viewImpl.ITaskSettingView;
+import com.alex.witAg.utils.AppUpdateUtil;
 import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.TaskServiceUtil;
 import com.alex.witAg.utils.TimeUtils;
@@ -52,8 +53,8 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
                                 ShareUtil.saveTaskTime((int) (Double.parseDouble(time)*60*60*1000));
                                 ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
                                 ShareUtil.saveCaptureQuality(quality);
-                                TaskServiceUtil.resetTasks();
-                                ToastUtils.showToast("设置成功");
+                                ToastUtils.showToast("设置成功,重新启动服务");
+                                AppUpdateUtil.restartApp();
                                 getView().finishActivity();
                             }
                         }

@@ -441,7 +441,6 @@ public class CaptureTaskUtil implements
         try {
             // login on the device
             int errCode = loginDevice();
-            ShareUtil.saveLoginId(loginDevice());
             if (ShareUtil.getLoginId() < 0) {
                 Log.e(TAG, "This device logins failed!");
                 return errCode;
@@ -509,7 +508,9 @@ public class CaptureTaskUtil implements
             ShareUtil.saveChannel(m_oNetDvrDeviceInfoV30.byIPChanNum
                     + m_oNetDvrDeviceInfoV30.byHighDChanNum * 256);
         }
-
+        if (iLogID>=0) {  //登陆成功，保存登录id
+            ShareUtil.saveLoginId(iLogID);
+        }
         Log.i(TAG, "NET_DVR_Login is Successful!");
         App.setIsNeedReLogin(false);
         return HCNetSDK.getInstance().NET_DVR_GetLastError();   //返回错误码
