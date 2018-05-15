@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -86,8 +87,15 @@ public class SplashPresenter extends BasePresenter<ISplashView>{
      */
     private void countDown() {
         addDisposable(Observable.intervalRange(1, 3, 0, 1, TimeUnit.SECONDS)
-                .map(count -> (3 - count))
+                .map((Long count) -> {
+                    return (3 - count);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(count -> getView().timeCountDown(count)));
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long count) throws Exception {
+                        SplashPresenter.this.getView().timeCountDown(count);
+                    }
+                }));
     }
 }

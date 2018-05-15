@@ -8,12 +8,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
-    },
-    {
         "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
     },
     {
         "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
@@ -112,12 +112,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_textfield_search_material.xml"
-    },
-    {
         "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_tick_mark_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
         "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",

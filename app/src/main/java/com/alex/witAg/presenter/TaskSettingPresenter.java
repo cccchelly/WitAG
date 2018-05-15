@@ -7,6 +7,7 @@ import com.alex.witAg.base.BaseObserver;
 import com.alex.witAg.base.BasePresenter;
 import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.bean.PhotoSetResponseBean;
+import com.alex.witAg.bean.UpdateMsgBean;
 import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.http.network.Net;
 import com.alex.witAg.presenter.viewImpl.ITaskSettingView;
@@ -18,6 +19,7 @@ import com.alex.witAg.utils.ToastUtils;
 
 import java.util.Date;
 
+import ezy.boost.update.UpdateUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -54,8 +56,12 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
                                 ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
                                 ShareUtil.saveCaptureQuality(quality);
                                 ToastUtils.showToast("设置成功,重新启动服务");
-                                AppUpdateUtil.restartApp();
+                                TaskServiceUtil.resetTasks();
                                 getView().finishActivity();
+                            }else if (response.getCode()==BaseResponse.RESULT_CODE_DEVICE_UNBIND){
+                                ToastUtils.showToast("token无效");
+                                ShareUtil.cleanToken();
+                                AppUpdateUtil.restartApp();
                             }
                         }
                     });

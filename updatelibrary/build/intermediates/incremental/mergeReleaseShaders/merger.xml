@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\WaTAGInport\WitAG\updatelibrary\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\WaTAGInport\WitAG\updatelibrary\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\zxwitag\WitAG\updatelibrary\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\zxwitag\WitAG\updatelibrary\src\release\shaders"/></dataSet></merger>

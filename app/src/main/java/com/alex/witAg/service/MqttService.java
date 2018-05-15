@@ -125,7 +125,7 @@ public class MqttService extends Service {
     public void onDestroy() {
         try {
             client.disconnect();
-        } catch (MqttException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onDestroy();

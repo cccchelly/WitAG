@@ -28,14 +28,15 @@ import java.text.SimpleDateFormat;
 public class CaptureService extends Service {
     public static String action = "capture_action";
     private static final String TAG = CaptureService.class.getName();
-    Handler toastHandle =new Handler(){
+    Handler toastHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             ToastUtils.showToast(msg.obj.toString());
         }
     };
+
     Handler mHandler = new Handler();
-    private boolean isThreadRun = false;
+    private boolean flagStop = false;
 
     Runnable r = new Runnable() {
         @Override
@@ -66,7 +67,6 @@ public class CaptureService extends Service {
                     toastOnMain("登录摄像头");
                     captureTaskUtil.loginCaptureLong();  //登录摄像头(若登录失败则重新继续登录,若账号密码错误则放弃登录)
                     if (isStatueChanged(SerialInforStrUtil.STA_OPEN_POSITIVE)) { //1
-                        sleepMills(5 * 1000);
                         Log.i(TAG,"==拍摄正面==");
                         toastOnMain("拍摄正面照片");
                         captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
@@ -107,22 +107,26 @@ public class CaptureService extends Service {
         App.setIsTaskRun(false);
         Log.e(TAG, "--------->onCreate: ");
         new Thread(() -> {
-
             //mHandler.postDelayed(r, 0);//发送请求开始执行
-            while (true) {
-                String taskTime = ShareUtil.getStartTaskTime();
-                String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
-                Log.i(TAG,"time1="+taskTime+"---time2="+nowTime);
-                if (TextUtils.equals(taskTime, nowTime)) {
-                    mHandler.postDelayed(r, 0);//发送请求开始执行
-                    break;
-                } else {
-                    try {
+            try {
+                Thread.sleep(2000); //延时等待上一个服务的循环跳出
+                flagStop = false;  //服务启动
+                while (true) {
+                    String taskTime = ShareUtil.getStartTaskTime();
+                    String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
+                    if (flagStop) {    //检测到服务销毁，跳出循环
+                        break;
+                    }
+                    Log.i(TAG, "time1=" + taskTime + "---time2=" + nowTime);
+                    if (TextUtils.equals(taskTime, nowTime)) {
+                        mHandler.postDelayed(r, 0);//发送请求开始执行
+                        break;
+                    } else {
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }).start();
     }
@@ -136,6 +140,9 @@ public class CaptureService extends Service {
     @Override
     public void onDestroy() {
         Log.e(TAG, "--------->onDestroy: ");
+        //服务销毁，取消handler循环，置反标志位，时间检测循环退出
+        mHandler.removeCallbacks(r);
+        flagStop = true;
         super.onDestroy();
     }
 
