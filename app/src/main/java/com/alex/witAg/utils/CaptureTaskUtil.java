@@ -207,6 +207,9 @@ public class CaptureTaskUtil implements
         ShareUtil.saveDeviceError(error);
         ShareUtil.saveDeviceBatvol(batvol);
         ShareUtil.saveDeviceSunvol(sunvol);
+        if (TextUtils.equals(error,"1")){ //电机超过4分钟未转到相应位置报错
+            
+        }
         /*SerialBackMessage message = new SerialBackMessage();
         message.setBatvol(batvol);
         message.setSunvol(sunvol);

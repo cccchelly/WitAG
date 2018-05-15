@@ -87,6 +87,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter,ISplashView> im
     public void timeCountDown(long time) {
         mTvTime.setText(String.format(Locale.getDefault(),"wait %d Seconds", time));
     }
+
     //初始化配置
     @Override
     public void setUrl() {
