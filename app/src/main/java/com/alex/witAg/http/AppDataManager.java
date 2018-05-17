@@ -12,6 +12,7 @@ import com.alex.witAg.bean.PhotoDetailRecodeBean;
 import com.alex.witAg.bean.PhotoSetResponseBean;
 import com.alex.witAg.bean.PicListBean;
 import com.alex.witAg.bean.PicMessageBean;
+import com.alex.witAg.bean.PostDevicePicBean;
 import com.alex.witAg.bean.PostLocationResponseBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.bean.SendSmsResponseBean;
@@ -115,7 +116,6 @@ public final class AppDataManager implements IDataManager{
     public Observable<BaseResponse<QiNiuTokenBean>> getQiNiuToken(String token) {
         return mIApi.getQiNiuToken(token);
     }
-
 
     @Override
     public Observable<ResponseBody> postDevicePic(PicMessageBean messageBean) {

@@ -23,13 +23,15 @@ import java.text.SimpleDateFormat;
 public class PostPicService extends Service {
     public static String actionPost = "action_post_pic";
     private String TAG = PostPicService.class.getName();
+    private boolean flagStop = false;
 
     Handler mHandler = new Handler();
     Runnable r = new Runnable() {
         @Override
         public void run() {
+            mHandler.postDelayed(this, ShareUtil.getTaskTime());
             CapturePostUtil.findLocalPic();
-            mHandler.postDelayed(this, ShareUtil.getTaskTime());}
+            }
     };
     @Nullable
     @Override
@@ -41,19 +43,24 @@ public class PostPicService extends Service {
     public void onCreate() {
         super.onCreate();
         new Thread(() -> {
-            while (true) {
-                String taskTime =  ShareUtil.getStartTaskTime();
-                String nowTime =  TimeUtils.millis2String(System.currentTimeMillis(),new SimpleDateFormat("HH:mm"));
-                if (TextUtils.equals(taskTime,nowTime)) {
-                    mHandler.postDelayed(r, 5*60*1000);//延时执行上传服务
-                    break;
-                }else {
-                    try {
+            try {
+                Thread.sleep(2000); //延时等待上一个服务的循环跳出
+                flagStop = false;  //服务启动
+                while (true) {
+                    String taskTime = ShareUtil.getStartTaskTime();
+                    String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
+                    if (flagStop) {    //检测到服务销毁，跳出循环
+                        break;
+                    }
+                    if (TextUtils.equals(taskTime, nowTime)) {
+                        mHandler.postDelayed(r, 5 * 60 * 1000);//延时执行上传服务
+                        break;
+                    } else {
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }).start();
         Log.e(TAG, "--------->onCreate: ");
@@ -68,6 +75,9 @@ public class PostPicService extends Service {
     @Override
     public void onDestroy() {
         Log.e(TAG, "--------->onDestroy: ");
+        //服务销毁，取消handler循环，置反标志位，时间检测循环退出
+        mHandler.removeCallbacks(r);
+        flagStop = true;
         super.onDestroy();
     }
 }

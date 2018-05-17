@@ -16,9 +16,9 @@
             android:id="@+id/sdv_big"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_180"
-            app:actualImageScaleType="centerCrop"
+            app:actualImageScaleType="fitXY"
             app:placeholderImage="@drawable/bg_login"
-            app:placeholderImageScaleType="focusCrop"
+            app:placeholderImageScaleType="fitXY"
             app:fadeDuration="1000"
             />
 

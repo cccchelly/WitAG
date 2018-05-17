@@ -10,6 +10,7 @@ import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.base.BaseResponseObserver;
 import com.alex.witAg.bean.PicMessageBean;
 import com.alex.witAg.bean.PicPathsBean;
+import com.alex.witAg.bean.PostDevicePicBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.http.network.Net;
@@ -125,15 +126,12 @@ public class CapturePostUtil {
                 .subscribe(new BaseResponseObserver<ResponseBody>() {
                     @Override
                     public void onSuccess(ResponseBody response) {
-                        try {
-                            Log.i(TAG,response.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showToast("图片:"+picName+"上传成功");
+                        ToastUtils.showToast("图片:" + picName + "上传成功");
                         //数据库删除文件名   删除文件
-                        DataSupport.deleteAll(PicPathsBean.class,"path = ?",picName);
-                        FileUtils.deleteFile(FileUtils.getFileName(FileUtils.getFileFromSdcard(picName).getAbsolutePath()));
+                        DataSupport.deleteAll(PicPathsBean.class, "path = ?", picName);
+                        FileUtils.deleteFile(FileUtils.getFileFromSdcard(picName).getAbsolutePath());
+                        Log.i("==fileName==",picName);
+                        //Log.i("==fileAbsName==",FileUtils.getFileFromSdcard(picName).getAbsolutePath());
                     }
                 });
 

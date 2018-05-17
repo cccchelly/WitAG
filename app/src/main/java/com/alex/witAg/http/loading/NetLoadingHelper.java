@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 
+import com.alex.witAg.App;
 import com.orhanobut.dialogplus.DialogPlus;
 
 /**

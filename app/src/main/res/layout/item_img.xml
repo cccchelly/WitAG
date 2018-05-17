@@ -12,7 +12,7 @@
         android:id="@+id/sdv_big"
         android:layout_width="@dimen/dp_45"
         android:layout_height="@dimen/dp_38"
-        app:actualImageScaleType="centerCrop"
+        app:actualImageScaleType="fitXY"
         app:placeholderImage="@drawable/bg_login"
         app:placeholderImageScaleType="fitXY"
         app:fadeDuration="1000"

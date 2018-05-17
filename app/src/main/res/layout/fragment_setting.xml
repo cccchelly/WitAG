@@ -156,7 +156,7 @@
             android:gravity="center"
             android:layout_weight="1">
         <TextView
-            android:id="@+id/tv_mode_select"
+            android:id="@+id/tv_check_update"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
             android:drawablePadding="@dimen/dp_8"
             android:textColor="@color/white"
             android:drawableTop="@drawable/ic_mode_select"
-            android:text="模式选择"
+            android:text="检查更新"
             android:textSize="@dimen/sp_16"/>
         </LinearLayout>
 
@@ -184,7 +184,7 @@
             android:drawablePadding="@dimen/dp_8"
             android:textColor="@color/white"
             android:drawableTop="@drawable/ic_warning_select"
-            android:text="报警选择"
+            android:text="手动上传"
             android:textSize="@dimen/sp_16"/>
         </LinearLayout>
 

@@ -10,11 +10,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alex.witAg.App;
 import com.alex.witAg.AppContants;
 import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
 import com.alex.witAg.presenter.SettingPresenter;
 import com.alex.witAg.presenter.viewImpl.ISettingView;
+import com.alex.witAg.utils.AppUpdateUtil;
 import com.alex.witAg.utils.CapturePostUtil;
 import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.ShareUtil;
@@ -80,7 +82,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     }
 
 
-    @OnClick({R.id.tv_account_modify, R.id.tv_project_setting,R.id.tv_ip_select,R.id.tv_reset,R.id.tv_phone_bind,R.id.tv_photo_select,R.id.tv_warning_select})
+    @OnClick({R.id.tv_account_modify, R.id.tv_project_setting,R.id.tv_ip_select,R.id.tv_reset,R.id.tv_phone_bind,R.id.tv_photo_select,R.id.tv_check_update,R.id.tv_warning_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_account_modify:  //账户修改（平板密码）
@@ -125,9 +127,12 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                             .navigation();
                 }
                 break;
+            case R.id.tv_check_update:
+                AppUpdateUtil.check(true, true, false, true, true, 998, App.getAppContext());    //检查新版本
+                break;
             case R.id.tv_warning_select:
-                //TaskServiceUtil.resetTasks();
-               // CapturePostUtil.findLocalPic();
+                //手动上传图片暂时放这里测试
+                CapturePostUtil.findLocalPic();
                 break;
         }
     }

@@ -44,50 +44,57 @@ public class CaptureService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    mHandler.postDelayed(this, ShareUtil.getTaskTime());
+
                     App.setIsTaskRun(true);
                     Log.i(TAG, App.getIsTaskRun() + " ----startCaptureTask");
                     toastOnMain("定时任务开始执行");
-                    //每隔一段时间循环执行run方法
-                    CaptureTaskUtil captureTaskUtil = CaptureTaskUtil.instance();
-                    TaskQueue taskQueue = TaskQueue.getInstance();
-                    Log.i(TAG,"==检查是否处于复位状态==");
-                    String statue = ShareUtil.getDeviceStatue();
-                    if (!TextUtils.equals(statue, SerialInforStrUtil.STA_CLOSE_RESET)) {  //设备不在复位状态则强制复位
-                        Log.i(TAG,"==执行复位指令==");
-                        toastOnMain("准备复位");
-                        taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));
-                        isStatueChanged(SerialInforStrUtil.STA_CLOSE_RESET);    //持续检查是否到达复位状态，到达则继续执行
+                    if (!TextUtils.equals(ShareUtil.getDeviceError(),"1")) {
+                        //每隔一段时间循环执行run方法
+                        CaptureTaskUtil captureTaskUtil = CaptureTaskUtil.instance();
+                        TaskQueue taskQueue = TaskQueue.getInstance();
+                        Log.i(TAG, "==检查是否处于复位状态==");
+                        String statue = ShareUtil.getDeviceStatue();
+                        if (!TextUtils.equals(statue, SerialInforStrUtil.STA_CLOSE_RESET)) {  //设备不在复位状态则强制复位
+                            Log.i(TAG, "==执行复位指令==");
+                            toastOnMain("准备复位");
+                            taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));
+                            isStatueChanged(SerialInforStrUtil.STA_CLOSE_RESET);    //持续检查是否到达复位状态，到达则继续执行
+                        }
+                        Log.i(TAG, "==打开相机并翻转到正面==");
+                        toastOnMain("准备打开相机并翻转到正面");
+                        captureTaskUtil.openCaptureTurnPositive();  //打开摄像头并翻转到正面
+                        captureTaskUtil.isCaptureOpenLong();   //持续查询是否收到相机已打开命令
+                        //sleepMills(60 * 1000);
+                        Log.i(TAG, "==持续登录摄像头==");
+                        toastOnMain("登录摄像头");
+                        captureTaskUtil.loginCaptureLong();  //登录摄像头(若登录失败则重新继续登录,若账号密码错误则放弃登录)
+                        if (isStatueChanged(SerialInforStrUtil.STA_OPEN_POSITIVE)) { //1
+                            sleepMills(20* 1000);    //摄像头能正常登陆到可以拍照有一个延迟时间，这里给个对应的延迟保证拍照能成功
+                            Log.i(TAG, "==拍摄正面==");
+                            toastOnMain("拍摄正面照片");
+                            captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
+                            sleepMills(5 * 1000);
+                        }
+                        Log.i(TAG, "==翻转到反面==");
+                        toastOnMain("翻转到反面");
+                        taskQueue.add(new SeralTask(SerialInforStrUtil.getDeclineStr())); //翻转到反面  2
+                        if (isStatueChanged(SerialInforStrUtil.STA_OPEN_OPPOSITE)) {
+                            Log.i(TAG, "==拍摄反面==");
+                            toastOnMain("拍摄反面照片");
+                            captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
+                            sleepMills(5 * 1000);
+                        }
+                        Log.i(TAG, "==复位关机==");
+                        toastOnMain("复位并关机");
+                        taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));  //复位关机
+                        sleepMills(2 * 60 * 1000);
+                        App.setIsTaskRun(false);
+                    }else {
+                        toastOnMain("机器故障！忽略本次定时任务！");
                     }
-                    Log.i(TAG,"==打开相机并翻转到正面==");
-                    toastOnMain("准备打开相机并翻转到正面");
-                    captureTaskUtil.openCaptureTurnPositive();  //打开摄像头并翻转到正面
-                    captureTaskUtil.isCaptureOpenLong();   //持续查询是否收到相机已打开命令
-                    //sleepMills(60 * 1000);
-                    Log.i(TAG,"==持续登录摄像头==");
-                    toastOnMain("登录摄像头");
-                    captureTaskUtil.loginCaptureLong();  //登录摄像头(若登录失败则重新继续登录,若账号密码错误则放弃登录)
-                    if (isStatueChanged(SerialInforStrUtil.STA_OPEN_POSITIVE)) { //1
-                        Log.i(TAG,"==拍摄正面==");
-                        toastOnMain("拍摄正面照片");
-                        captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
-                        sleepMills(5 * 1000);
-                    }
-                    Log.i(TAG,"==翻转到反面==");
-                    toastOnMain("翻转到反面");
-                    taskQueue.add(new SeralTask(SerialInforStrUtil.getDeclineStr())); //翻转到反面  2
-                    if (isStatueChanged(SerialInforStrUtil.STA_OPEN_OPPOSITE)) {
-                        Log.i(TAG,"==拍摄反面==");
-                        toastOnMain("拍摄反面照片");
-                        captureTaskUtil.capture(CaptureTaskUtil.FROM_TASK);
-                        sleepMills(5 * 1000);
-                    }
-                    Log.i(TAG,"==复位关机==");
-                    toastOnMain("复位并关机");
-                    taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));  //复位关机
-                    sleepMills(2*60*1000);
-                    App.setIsTaskRun(false);
+                    //toastOnMain("定时任务执行完毕");
                     Log.i(TAG, App.getIsTaskRun() + " ----completeCaptureTask");
-                    mHandler.postDelayed(this, ShareUtil.getTaskTime());
                 }
 
             }).start();

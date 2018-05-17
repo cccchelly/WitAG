@@ -4,9 +4,14 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.alex.witAg.App;
+import com.alex.witAg.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -47,7 +52,23 @@ public abstract class  BaseResponseObserver<T extends ResponseBody> implements O
         if (null!=mIBaseView) {
             mIBaseView.showDataView();
         }
-        onSuccess(response);
+        try {
+            String responseStr =  response.string();
+            try {
+                JSONObject jsonObject = new JSONObject(responseStr);
+                int code = jsonObject.getInt("code");
+                if (code==0){
+                    onSuccess(response);
+                }else {
+                    ToastUtils.showToast("错误：errorCode="+code);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -19,8 +19,8 @@ public class TaskServiceUtil {
     public static void  startTasks(){
         Intent intent = new Intent(App.getAppContext(), CaptureService.class);   //开启服务定时拍照
         App.getAppContext().startService(intent);
-        /*Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //开启服务定时上传
-        App.getAppContext().startService(postIntent);*/
+        Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //开启服务定时上传
+        App.getAppContext().startService(postIntent);
         /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //开启更新查询
         App.getAppContext().startService(updateIntent);*/
         /*Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
@@ -32,9 +32,9 @@ public class TaskServiceUtil {
     public static void stopTasks(){
         Intent intent = new Intent(App.getAppContext(), CaptureService.class);   //关闭服务定时拍照
         App.getAppContext().stopService(intent);
-        /*Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //关闭服务定时上传
-        App.getAppContext().stopService(postIntent);*/
-     /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //关闭更新查询
+        Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //关闭服务定时上传
+        App.getAppContext().stopService(postIntent);
+       /* Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //关闭更新查询
         App.getAppContext().stopService(updateIntent);*/
         Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
         App.getAppContext().stopService(locationIntent);

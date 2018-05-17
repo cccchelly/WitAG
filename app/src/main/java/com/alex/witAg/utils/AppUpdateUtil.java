@@ -44,31 +44,45 @@ public class AppUpdateUtil {
 
     public static void check(boolean isManual, final boolean hasUpdate, final boolean isForce, final boolean isSilent, final boolean isIgnorable, final int
             notifyId, Context context) {
+            getVersionJsonStr(isManual,hasUpdate,isForce,isSilent,isIgnorable,
+            notifyId,context);
+    }
+
+    private static void getVersionJsonStr(boolean isManual, boolean hasUpdate, boolean isForce, boolean isSilent, boolean isIgnorable, int notifyId, Context context) {
+        AppDataManager.getInstence(Net.URL_KIND_COMPANY)
+                .getVersion(ShareUtil.getToken(),AppMsgUtil.getVersionCode(context)+"")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResponse<UpdateMsgBean>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<UpdateMsgBean> response) {
+                        Log.i("==version==",response.getData().toString());
+                        startCheck(isManual,hasUpdate,isForce,isSilent,isIgnorable,
+                                notifyId,context,response.getData().toString());
+                    }
+                });
+    }
+
+    private static void startCheck(boolean isManual, boolean hasUpdate, boolean isForce, boolean isSilent, boolean isIgnorable, int notifyId, Context context,String checkStr) {
         UpdateManager.create(context)
                 .setWifiOnly(false).setChecker(new IUpdateChecker() {
             @Override
             public void check(ICheckAgent agent, String url) {
-                Log.e("ezy.update", "checking");
-                AppDataManager.getInstence(Net.URL_KIND_COMPANY)
-                        .getVersion(ShareUtil.getToken(),AppMsgUtil.getVersionCode(context)+"")
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new BaseObserver<BaseResponse<UpdateMsgBean>>() {
-                            @Override
-                            public void onSuccess(BaseResponse<UpdateMsgBean> response) {
-                                Log.i("==version==",response.getData().toString());
-                                agent.setInfo(response.getData().toString());
-                            }
-                        });
-                //agent.setInfo("");
+                Log.e("ezy.update", "url="+url);
+                agent.setInfo(checkStr);
             }
-        }).setUrl(mCheckUrl).setManual(isManual).setNotifyId(notifyId).setParser(new IUpdateParser() {
+        }).setUrl("url")
+                .setManual(isManual).setNotifyId(notifyId).setParser(new IUpdateParser() {
             @Override
             public UpdateInfo parse(String source) throws Exception {
                 Log.i(TAG,"parse");
                 Log.i("==version2==",source);
                 UpdateMsgBean msgBean = new Gson().fromJson(source,UpdateMsgBean.class);
+                //Log.i("==versionJson==",msgBean.toString());
                 UpdateInfo info = new UpdateInfo();
+                if (!hasUpdate){
+                    ToastUtils.showToast("已是最新版本");
+                }
                 info.hasUpdate = hasUpdate;
 
                 /*info.updateContent = "更新内容测试";
@@ -81,9 +95,9 @@ public class AppUpdateUtil {
                 info.updateContent = msgBean.getContent();
                 info.versionCode = msgBean.getCode();
                 info.versionName = msgBean.getName();
-                info.url = mUpdateUrl;
+                info.url = msgBean.getUrl();
                 info.md5 = msgBean.getMd5();
-                info.size = msgBean.getSize();
+                info.size = 29648695;
 
                 info.isForce = isForce;
                 info.isIgnorable = isIgnorable;
