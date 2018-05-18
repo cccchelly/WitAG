@@ -10,7 +10,6 @@ import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.base.BaseResponseObserver;
 import com.alex.witAg.bean.PicMessageBean;
 import com.alex.witAg.bean.PicPathsBean;
-import com.alex.witAg.bean.PostDevicePicBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.http.network.Net;
@@ -98,7 +97,7 @@ public class CapturePostUtil {
                         if(info.isOK()) {
                             Log.i(TAG, "Upload Success");
                             PicMessageBean messageBean = new PicMessageBean();
-                            messageBean.setDeviceId(ShareUtil.getLoginId());
+                            //messageBean.setDeviceId(ShareUtil.getLoginId());
                             messageBean.setName(key.toString());
                             messageBean.setUrl(key.toString());
                             postPic(messageBean,name);
@@ -118,7 +117,7 @@ public class CapturePostUtil {
                         }, null));
     }
 
-    static void postPic(PicMessageBean messageBean, String picName){
+   public static void postPic(PicMessageBean messageBean, String picName){
         AppDataManager.getInstence(Net.URL_KIND_COMPANY)
                 .postDevicePic(messageBean)
                 .subscribeOn(Schedulers.io())
@@ -127,11 +126,15 @@ public class CapturePostUtil {
                     @Override
                     public void onSuccess(ResponseBody response) {
                         ToastUtils.showToast("图片:" + picName + "上传成功");
-                        //数据库删除文件名   删除文件
-                        DataSupport.deleteAll(PicPathsBean.class, "path = ?", picName);
-                        FileUtils.deleteFile(FileUtils.getFileFromSdcard(picName).getAbsolutePath());
-                        Log.i("==fileName==",picName);
-                        //Log.i("==fileAbsName==",FileUtils.getFileFromSdcard(picName).getAbsolutePath());
+                        try {
+                            //数据库删除文件名   删除文件
+                            DataSupport.deleteAll(PicPathsBean.class, "path = ?", picName);
+                            FileUtils.deleteFile(FileUtils.getFileFromSdcard(picName).getAbsolutePath());
+                            Log.i("==fileName==",picName);
+                            //Log.i("==fileAbsName==",FileUtils.getFileFromSdcard(picName).getAbsolutePath());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 });
 

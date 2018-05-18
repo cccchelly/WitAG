@@ -14,10 +14,13 @@ import com.alex.witAg.App;
 import com.alex.witAg.AppContants;
 import com.alex.witAg.R;
 import com.alex.witAg.base.BaseFragment;
+import com.alex.witAg.bean.PicMessageBean;
+import com.alex.witAg.bean.PicPathsBean;
 import com.alex.witAg.presenter.SettingPresenter;
 import com.alex.witAg.presenter.viewImpl.ISettingView;
 import com.alex.witAg.utils.AppUpdateUtil;
 import com.alex.witAg.utils.CapturePostUtil;
+import com.alex.witAg.utils.FileUtils;
 import com.alex.witAg.utils.MyAnimUtil;
 import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.TaskServiceUtil;
@@ -25,6 +28,8 @@ import com.alex.witAg.utils.ToastUtils;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -132,7 +137,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                 break;
             case R.id.tv_warning_select:
                 //手动上传图片暂时放这里测试
-                CapturePostUtil.findLocalPic();
+                //CapturePostUtil.findLocalPic();
+                PicMessageBean messageBean = new PicMessageBean();
+                messageBean.setName("aaa.jpg");
+                messageBean.setUrl("20180518111914-A.jpg");
+                CapturePostUtil.postPic(messageBean,"aaa.jpg");
                 break;
         }
     }

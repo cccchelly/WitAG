@@ -12,7 +12,6 @@ import com.alex.witAg.bean.PhotoDetailRecodeBean;
 import com.alex.witAg.bean.PhotoSetResponseBean;
 import com.alex.witAg.bean.PicListBean;
 import com.alex.witAg.bean.PicMessageBean;
-import com.alex.witAg.bean.PostDevicePicBean;
 import com.alex.witAg.bean.PostLocationResponseBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.bean.SendSmsResponseBean;

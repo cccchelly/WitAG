@@ -14,7 +14,7 @@ public interface AppContants {
 
     String API_BASE_URL     = "http://59.110.240.44/app/";   //线上
     //String API_BASE_URL     = "http://172.168.21.33:9007/app/";   //本地zy
-    //String API_BASE_URL     = "http://172.16.23.211:9007/app/";   //本地xxl
+    //String API_BASE_URL     = "http://172.16.23.179:9007/app/";   //本地xxl
     String CHECK_VERSION_URL = API_BASE_URL+"update/index";
     int    CONNECT_TIME_OUT = 15;
     int    WRITE_TIME_OUT   = 15;
