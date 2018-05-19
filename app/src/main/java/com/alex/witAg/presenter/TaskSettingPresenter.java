@@ -56,6 +56,7 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
                                 ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
                                 ShareUtil.saveCaptureQuality(quality);
                                 ToastUtils.showToast("设置成功,重新启动服务");
+                                //AppUpdateUtil.restartApp();
                                 TaskServiceUtil.resetTasks();
                                 getView().finishActivity();
                             }else if (response.getCode()==BaseResponse.RESULT_CODE_DEVICE_UNBIND){

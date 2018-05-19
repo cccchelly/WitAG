@@ -30,7 +30,13 @@ public class PostPicService extends Service {
         @Override
         public void run() {
             mHandler.postDelayed(this, ShareUtil.getTaskTime());
-            CapturePostUtil.findLocalPic();
+            Log.i("--post--","post_start");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    CapturePostUtil.findLocalPic();
+                }
+            }).start();
             }
     };
     @Nullable
@@ -42,14 +48,16 @@ public class PostPicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        flagStop = false;  //服务启动
+
         new Thread(() -> {
             try {
-                Thread.sleep(2000); //延时等待上一个服务的循环跳出
-                flagStop = false;  //服务启动
                 while (true) {
                     String taskTime = ShareUtil.getStartTaskTime();
                     String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
+                    Log.i("==postService==","time1="+taskTime+"time2="+nowTime);
                     if (flagStop) {    //检测到服务销毁，跳出循环
+                        Log.i(TAG,"上传旧任务停止");
                         break;
                     }
                     if (TextUtils.equals(taskTime, nowTime)) {

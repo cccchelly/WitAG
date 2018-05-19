@@ -1,9 +1,15 @@
 package com.alex.witAg.base;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alex.witAg.App;
+import com.alex.witAg.bean.GetTokenBean;
+import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
+import com.alex.witAg.utils.AppMsgUtil;
+import com.alex.witAg.utils.ShareUtil;
 import com.alex.witAg.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -19,8 +25,10 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
@@ -61,6 +69,11 @@ public abstract class  BaseResponseObserver<T extends ResponseBody> implements O
                     onSuccess(response);
                 }else {
                     ToastUtils.showToast("错误：errorCode="+code);
+                    if (code==BaseResponse.RESULT_CODE_DEVICE_UNLOGIN){
+                        Login();
+                    }else if (code == BaseResponse.RESULT_CODE_ERROR){
+                        Login();     //服务器bug，token失效返回错误码跑到了这里，客户端临时补救重新调用登录刷新token
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -70,7 +83,25 @@ public abstract class  BaseResponseObserver<T extends ResponseBody> implements O
         }
 
     }
-
+    protected void Login(){
+        //获取token
+        AppDataManager.getInstence(Net.URL_KIND_BASE)
+                .getToken(AppMsgUtil.getIMEI(App.getAppContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResponse<GetTokenBean>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<GetTokenBean> response) {
+                        Log.i("==gettoken==",response.toString());
+                        if (response.getCode()==BaseResponse.RESULT_CODE_SUCCESS){
+                            //得到token
+                            ShareUtil.saveToken(response.getData().getToken());
+                        }else if (response.getCode()>0){
+                            //ToastUtils.showToast("获取token错误："+response.getMsg());
+                        }
+                    }
+                });
+    }
     @Override
     public void onError(@NonNull Throwable e) {
 

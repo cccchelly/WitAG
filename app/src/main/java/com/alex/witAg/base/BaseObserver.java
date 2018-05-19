@@ -70,6 +70,7 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
                     break;
             case BaseResponse.RESULT_CODE_ERROR:
                 onDataFailure(response);
+                Login();     //服务器bug，token失效返回错误码跑到了这里，客户端临时补救重新调用登录刷新token
                  break;
             case BaseResponse.RESULT_CODE_TOKEN_EXPIRED:
                 break;

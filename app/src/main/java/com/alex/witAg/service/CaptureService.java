@@ -41,11 +41,11 @@ public class CaptureService extends Service {
     Runnable r = new Runnable() {
         @Override
         public void run() {
+            mHandler.postDelayed(this, ShareUtil.getTaskTime());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    mHandler.postDelayed(this, ShareUtil.getTaskTime());
-
+                    Log.i("--capture--","capture_start");
                     App.setIsTaskRun(true);
                     Log.i(TAG, App.getIsTaskRun() + " ----startCaptureTask");
                     toastOnMain("定时任务开始执行");
@@ -111,17 +111,19 @@ public class CaptureService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        ToastUtils.showToast("定时拍照任务开始执行");
         App.setIsTaskRun(false);
         Log.e(TAG, "--------->onCreate: ");
+        flagStop = false;  //服务启动
+
         new Thread(() -> {
             //mHandler.postDelayed(r, 0);//发送请求开始执行
             try {
-                Thread.sleep(2000); //延时等待上一个服务的循环跳出
-                flagStop = false;  //服务启动
                 while (true) {
                     String taskTime = ShareUtil.getStartTaskTime();
                     String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
                     if (flagStop) {    //检测到服务销毁，跳出循环
+                        Log.i(TAG,"拍照旧循环停止");
                         break;
                     }
                     Log.i(TAG, "time1=" + taskTime + "---time2=" + nowTime);
