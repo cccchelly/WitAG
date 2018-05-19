@@ -209,10 +209,13 @@ public class CrashUtil implements Thread.UncaughtExceptionHandler {
                     boolean s = dir.mkdirs();
                     System.out.println(s);
                 }
-
-                FileOutputStream fileOutputStream = new FileOutputStream(SD_CARD_PATH + "/" + fileName);
-                fileOutputStream.write(sb.toString().getBytes());
-                fileOutputStream.close();
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(SD_CARD_PATH + "/" + fileName);
+                    fileOutputStream.write(sb.toString().getBytes());
+                    fileOutputStream.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             return fileName;
