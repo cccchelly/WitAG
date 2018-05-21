@@ -42,6 +42,7 @@ public class CaptureService extends Service {
         @Override
         public void run() {
             mHandler.postDelayed(this, ShareUtil.getTaskTime());
+            ShareUtil.saveStartTaskTime(System.currentTimeMillis()+ShareUtil.getTaskTime());
             new Thread(new Runnable() {
                 @Override
                 public void run() {

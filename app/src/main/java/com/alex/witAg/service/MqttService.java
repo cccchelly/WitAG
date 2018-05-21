@@ -18,6 +18,7 @@ import com.alex.witAg.taskqueue.TaskQueue;
 import com.alex.witAg.utils.AppMsgUtil;
 import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
+import com.alex.witAg.utils.TaskServiceUtil;
 import com.alex.witAg.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -204,7 +205,10 @@ public class MqttService extends Service {
                    case "op_camera":  //相机
                        dealCmdStr(msgBean.getD().getCmd());
                        break;
-                   case "op_board": // 沾虫板
+                   case "op_board": // 粘虫板
+                       dealCmdStr(msgBean.getD().getCmd());
+                       break;
+                   case "task":  //定时任务
                        dealCmdStr(msgBean.getD().getCmd());
                        break;
                }
@@ -218,6 +222,9 @@ public class MqttService extends Service {
     private void dealCmdStr(String cmd) {
         CaptureTaskUtil captureTaskUtil = CaptureTaskUtil.instance();
         switch (cmd){
+            case "task_rest"://重启定时任务
+                TaskServiceUtil.resetTasks();
+                break;
             case "capture":   //执行相机拍照
                 capture(captureTaskUtil);
                 break;

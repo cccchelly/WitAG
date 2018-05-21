@@ -137,11 +137,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                 break;
             case R.id.tv_warning_select:
                 //手动上传图片暂时放这里测试
-                //CapturePostUtil.findLocalPic();
-                PicMessageBean messageBean = new PicMessageBean();
+                CapturePostUtil.findLocalPic();
+                /*PicMessageBean messageBean = new PicMessageBean();
                 messageBean.setName("aaa.jpg");
                 messageBean.setUrl("20180518111914-A.jpg");
-                CapturePostUtil.postPic(messageBean,"aaa.jpg");
+                CapturePostUtil.postPic(messageBean,"aaa.jpg");*/
                 break;
         }
     }

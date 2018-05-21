@@ -59,60 +59,60 @@ public interface IApi {
 
 
     /*获取版本信息*/
-    @GET("update/index")
+    @GET("/app/update/index")
     Observable<BaseResponse<UpdateMsgBean>> getVersion(@Query("token") String token,@Query("versionNu") String versionCode);
 
     /*根据imei登录设备获取token*/
-    @POST("device/login")
+    @POST("/app/device/login")
     Observable<BaseResponse<GetTokenBean>>  getToken(@Query("deviceCode") String imei);
 
     /*绑定设备与公司信息*/
-    @POST("device/bind")
+    @POST("/app/device/bind")
     Observable<BaseResponse<BindComResponseBean>> bindCompany(@Body BindComRequestBean bindComRequestBean);
 
     /*基础设置*/
-    @POST("device/config")
+    @POST("/app/device/config")
     Observable<BaseResponse<BaseSettingResponseBean>> setBaseSetting(@Body BaseSettingRequestBean baseSettingRequestBean);
 
     /*设置定时照相参数*/
-    @POST("device/photo/setting")
+    @POST("/app/device/photo/setting")
     Observable<BaseResponse<PhotoSetResponseBean>> setPhotoTask(@Query("token") String token,
                                                                 @Query("photoStart") String photoStart,
                                                                 @Query("photoInterval") Integer photoInterval,
                                                                 @Query("photoMark")Integer photoMark,
                                                                 @Query("photoQuality")Integer photoQuality);
     /*发送验证码*/
-    @POST("app/sms/code")
+    @POST("/app/app/sms/code")
     Observable<BaseResponse<SendSmsResponseBean>> sendSms(@Query("token") String token,
                                                           @Query("phone")String phone);
     /*绑定手机号*/
-    @POST("device/bind/phone")
+    @POST("/app/device/bind/phone")
     Observable<BaseResponse<BindPhoneResponseBean>> bindPhone(@Query("token") String token,
                                                               @Query("phone") String phone,
                                                               @Query("code")String code);
     /*上传定位信息*/
-    @POST("device/position")
+    @POST("/app/device/position")
     Observable<BaseResponse<PostLocationResponseBean>> postLocation(@Query("Latitude") String Latitude,
                                                                     @Query("Longitude") String Longitude);
 
     /*获取七牛token*/
-    @POST("upload/token")
+    @POST("/app/upload/token")
     Observable<BaseResponse<QiNiuTokenBean>> getQiNiuToken(@Query("token") String token);
 
     /*
     * 设备图片上传到服务器
     */
-    @POST("det/photo/add")
+    @POST("/app/det/photo/add")
     Observable<ResponseBody> postDevicePic(@Body PicMessageBean messageBean);
 
     /*设备图片列表*/
-    @GET("det/photo/find")
+    @GET("/app/det/photo/find")
     Observable<BaseResponse<PicListBean>> getPicListData(@Query("token") String token,@Query("date") String date);
 
     /*
     * 设备图片虫情记录
     */
-    @GET("det/photo/pest/find/{id}")
+    @GET("/app/det/photo/pest/find/{id}")
     Observable<BaseResponse<PhotoDetailRecodeBean>> getRecodeByPhoto(@Path("id")String id,@Query("token") String token);
 
 }

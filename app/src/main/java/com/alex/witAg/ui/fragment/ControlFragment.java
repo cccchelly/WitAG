@@ -234,7 +234,7 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
         mTvOpen.startAnimation(MyAnimUtil.alphHalf2All());
         if (!isTaskRun() && !isCapOpen()) {
             new Thread(() -> {
-                getActivity().runOnUiThread(() -> ToastUtils.showToast("准备打开摄像机并将沾虫板翻转至正面"));
+                getActivity().runOnUiThread(() -> ToastUtils.showToast("准备打开摄像机并将粘虫板翻转至正面"));
                 captureTaskUtil.openCaptureTurnPositive();
             }).start();
         }
@@ -244,7 +244,7 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
         mIcReset.startAnimation(MyAnimUtil.alphHalf2All());
         if (!isTaskRun() && !isDeviceRun()) {
             new Thread(() -> {
-                getActivity().runOnUiThread(() -> ToastUtils.showToast("准备将沾虫板复位并关闭相机"));
+                getActivity().runOnUiThread(() -> ToastUtils.showToast("准备将粘虫板复位并关闭相机"));
                 taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));
             }).start();
         }
@@ -284,7 +284,7 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
             new Thread(() ->
             {
                 if (captureTaskUtil.isCaptureOpen()) {
-                    getActivity().runOnUiThread(() -> ToastUtils.showToast("准备将沾虫板翻转至反面"));
+                    getActivity().runOnUiThread(() -> ToastUtils.showToast("准备将粘虫板翻转至反面"));
                     taskQueue.add(new SeralTask(SerialInforStrUtil.getDeclineStr()));
                 } else {
                     getActivity().runOnUiThread(() -> ToastUtils.showToast("请先启动摄像机"));
