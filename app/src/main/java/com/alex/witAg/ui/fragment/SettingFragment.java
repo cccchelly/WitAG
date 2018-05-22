@@ -137,7 +137,12 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                 break;
             case R.id.tv_warning_select:
                 //手动上传图片暂时放这里测试
-                CapturePostUtil.findLocalPic();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CapturePostUtil.findLocalPic();
+                    }
+                }).start();
 
                 /*PicMessageBean messageBean = new PicMessageBean();
                 messageBean.setName("aaa.jpg");

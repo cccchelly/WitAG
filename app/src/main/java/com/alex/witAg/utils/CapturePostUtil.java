@@ -41,16 +41,17 @@ public class CapturePostUtil {
     public static void findLocalPic(){
         List<PicPathsBean> picPaths = DataSupport.findAll(PicPathsBean.class);
         Log.i(TAG,"图片数="+picPaths.size());
-        for (PicPathsBean picpath:picPaths) {
+        if (picPaths.size()>0){
+            String path = picPaths.get(0).getPath();
             try{
-                File file = FileUtils.getFileFromSdcard(picpath.getPath());
-                postPic(file,picpath.getPath());
+                File file = FileUtils.getFileFromSdcard(path);
+                postPic(file,path);
             }catch (NullPointerException e){
                 //未找到图片（如人为删除了图片），从数据库清除图片地址
                 //数据库删除文件名
-                DataSupport.deleteAll(PicPathsBean.class,"path = ?",picpath.getPath());
+                DataSupport.deleteAll(PicPathsBean.class,"path = ?",path);
+                findLocalPic();
             }
-
         }
     }
     private static String TAG =CapturePostUtil.class.getName();
@@ -67,7 +68,6 @@ public class CapturePostUtil {
                     .zone(FixedZone.zone2)        // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
                     .build();
 
-    static UploadManager uploadManager = new UploadManager(config);
     // 初始化、执行上传
     private volatile boolean isCancelled = false;    //要取消上传时置为true
 
@@ -89,32 +89,40 @@ public class CapturePostUtil {
     }
 
     static void postToQiNiu(File data, String name, String token){
-        uploadManager.put(data, name, token,
-                new UpCompletionHandler() {
+        UploadManager uploadManager = new UploadManager(config);
+        new Thread(
+                new Runnable() {
                     @Override
-                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-                        if(info.isOK()) {
-                            Log.i(TAG, "Upload Success");
-                            PicMessageBean messageBean = new PicMessageBean();
-                            //messageBean.setDeviceId(ShareUtil.getLoginId());
-                            messageBean.setName(key.toString());
-                            messageBean.setUrl(key.toString());
-                            postPic(messageBean,name);
-                            //getView().dissmissLoadingView();
-                        } else {
-                            Log.i(TAG, "Upload Fail");
-                            //getView().dissmissLoadingView();
-                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
-                        }
-                        Log.i(TAG, key + ",\r\n " + info + ",\r\n " + res);
+                    public void run() {
+                        uploadManager.put(data, name, token,
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                        if(info.isOK()) {
+                                            Log.i(TAG, "Upload Success");
+                                            PicMessageBean messageBean = new PicMessageBean();
+                                            //messageBean.setDeviceId(ShareUtil.getLoginId());
+                                            messageBean.setName(key.toString());
+                                            messageBean.setUrl(key.toString());
+                                            postPic(messageBean,name);
+                                            //getView().dissmissLoadingView();
+                                        } else {
+                                            Log.i(TAG, "Upload Fail");
+                                            //getView().dissmissLoadingView();
+                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                                        }
+                                        Log.i(TAG, key + ",\r\n " + info + ",\r\n " + res);
+                                    }
+                                },new UploadOptions(null, null, false,
+                                        new UpProgressHandler(){
+                                            public void progress(String key, double percent){
+                                                Log.i(TAG, key + ": " + percent);
+                                            }
+                                        }, null));
                     }
-                },new UploadOptions(null, null, false,
-                        new UpProgressHandler(){
-                            public void progress(String key, double percent){
-                                Log.i(TAG, key + ": " + percent);
-                            }
-                        }, null));
+                }
+        ).start();
     }
 
    public static void postPic(PicMessageBean messageBean, String picName){
@@ -130,6 +138,7 @@ public class CapturePostUtil {
                             //数据库删除文件名   删除文件
                             DataSupport.deleteAll(PicPathsBean.class, "path = ?", picName);
                             FileUtils.deleteFile(FileUtils.getFileFromSdcard(picName).getAbsolutePath());
+                            findLocalPic();   //递归上传，每次上传第一张图片，完成后删除图片继续上传直到全部上传完毕。
                             Log.i("==fileName==",picName);
                             //Log.i("==fileAbsName==",FileUtils.getFileFromSdcard(picName).getAbsolutePath());
                         }catch (Exception e){
