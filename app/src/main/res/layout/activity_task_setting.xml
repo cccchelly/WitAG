@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_12"
             android:layout_marginRight="@dimen/dp_20"
-            android:text="时间间隔(小时)"/>
+            android:text="时间间隔(分钟)"/>
         <FrameLayout
             android:layout_width="@dimen/dp_130"
             android:layout_height="@dimen/dp_20"

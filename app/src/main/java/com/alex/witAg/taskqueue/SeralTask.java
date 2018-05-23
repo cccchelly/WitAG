@@ -21,7 +21,9 @@ public  class SeralTask implements ITask{
     public void run() {
         App.setIsWaitTaskFinish(true);
         Log.i("==task==",send);
-        CaptureTaskUtil.instance().send(send);
+        if (!CaptureTaskUtil.instance().send(send)){ //发送消息到串口，如果发送失败则置反标志位认为本次任务完成
+            App.setIsWaitTaskFinish(false);
+        }
     }
 
 }

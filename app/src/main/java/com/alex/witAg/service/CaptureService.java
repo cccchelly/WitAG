@@ -43,6 +43,7 @@ public class CaptureService extends Service {
         public void run() {
             mHandler.postDelayed(this, ShareUtil.getTaskTime());
             ShareUtil.saveStartTaskTime(System.currentTimeMillis()+ShareUtil.getTaskTime());
+            Log.i("--capture--","capture_start");
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -120,14 +121,14 @@ public class CaptureService extends Service {
         new Thread(() -> {
             //mHandler.postDelayed(r, 0);//发送请求开始执行
             try {
+                String taskTime = ShareUtil.getStartTaskTime();
                 while (true) {
-                    String taskTime = ShareUtil.getStartTaskTime();
                     String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
                     if (flagStop) {    //检测到服务销毁，跳出循环
                         Log.i(TAG,"拍照旧循环停止");
                         break;
                     }
-                    Log.i(TAG, "time1=" + taskTime + "---time2=" + nowTime);
+                    Log.i(TAG, "capt_time1=" + taskTime + "---time2=" + nowTime);
                     if (TextUtils.equals(taskTime, nowTime)) {
                         mHandler.postDelayed(r, 0);//发送请求开始执行
                         break;

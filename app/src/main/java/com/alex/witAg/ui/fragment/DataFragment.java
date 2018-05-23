@@ -63,7 +63,7 @@ public class DataFragment extends BaseFragment<DataPresenter, IDataView> impleme
         tvCaptureStatus.setText("");
         tvBatvolStatus.setText(ShareUtil.getDeviceBatvol());
         tvSunvvolStatus.setText(ShareUtil.getDeviceSunvol());
-        tvDianjiStatus.setText(ShareUtil.getDeviceStatue());
+        tvDianjiStatus.setText(ShareUtil.getDeviceError());
         tvPosition.setText("经度\n"+ShareUtil.getLongitude()+"\n纬度\n"+ShareUtil.getLatitude());
     }
 

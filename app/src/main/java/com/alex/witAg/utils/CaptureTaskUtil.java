@@ -221,27 +221,31 @@ public class CaptureTaskUtil implements
     /**
      * 发送数据
      */
-    public void send(String data) {
+    public boolean send(String data) {
         Log.i(TAG,"发送给串口-->"+data);
         if (!isDeviceOpenFlag){
             Log.i(TAG,"请先打开串口");
         }
         if (null == data) {
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(data)) {
             // getView().showOpenMsg("请输入要发送的信息");
             Log.i(TAG, "onSend: 发送内容为 null");
-            return;
+            return false;
         }
-        sendSure(data);
+        return sendSure(data);
     }
 
     private boolean sendSure(String data){
-        byte[] sendContentBytes = data.getBytes();
-        boolean sendBytes = mSerialPortManager.sendBytes(sendContentBytes);
-        Log.i(TAG, "onSend: sendBytes = " + sendBytes);
-        return sendBytes;
+        if (TextUtils.equals(ShareUtil.getDeviceError(),"1")){
+            return false;
+        }else {
+            byte[] sendContentBytes = data.getBytes();
+            boolean sendBytes = mSerialPortManager.sendBytes(sendContentBytes);
+            Log.i(TAG, "onSend: sendBytes = " + sendBytes);
+            return sendBytes;
+        }
     }
 
 
@@ -354,7 +358,7 @@ public class CaptureTaskUtil implements
     //持续查询相机是否登录成功（登录未成功则继续登录）
     public boolean loginCaptureLong(){
         boolean isLogined = false;
-        for (int i = 1;i<5*60;i++){
+        for (int i = 1;i<60;i++){
             int errCode = login();
             if (errCode!=0){
                 if (errCode==1){  //用户名密码错误 退出循环登录请求

@@ -52,16 +52,16 @@ public class PostPicService extends Service {
 
         new Thread(() -> {
             try {
+                String taskTime = ShareUtil.getStartTaskTime();
                 while (true) {
-                    String taskTime = ShareUtil.getStartTaskTime();
                     String nowTime = TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("HH:mm"));
-                    Log.i("==postService==","time1="+taskTime+"time2="+nowTime);
+                    Log.i(TAG,"post_time1="+taskTime+"time2="+nowTime);
                     if (flagStop) {    //检测到服务销毁，跳出循环
                         Log.i(TAG,"上传旧任务停止");
                         break;
                     }
                     if (TextUtils.equals(taskTime, nowTime)) {
-                        mHandler.postDelayed(r, 5 * 60 * 1000);//延时执行上传服务
+                        mHandler.postDelayed(r, 5  *60* 1000);//延时执行上传服务
                         break;
                     } else {
                         Thread.sleep(1000);

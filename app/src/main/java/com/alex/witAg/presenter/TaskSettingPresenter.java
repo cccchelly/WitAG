@@ -39,9 +39,9 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
             ToastUtils.showToast("请输入间隔时间");
         }else if (date==null){
             ToastUtils.showToast("请选择执行时间");
-        }else/* if (TimeUtils.date2Millis(date)<=System.currentTimeMillis()){
-            ToastUtils.showToast("所选时间已过期");
-        }else*/ {
+        }else if (Integer.parseInt(time)<10){
+            ToastUtils.showToast("时间间隔应至少十分钟");
+        }else {
             mView.showLoadingView("加载中...");
             AppDataManager.getInstence(Net.URL_KIND_COMPANY)
                     .setPhotoTask(ShareUtil.getToken(),TimeUtils.date2Millis(date)+"",Integer.parseInt(time),logoFlag,quality)
@@ -52,7 +52,7 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
                         public void onSuccess(BaseResponse<PhotoSetResponseBean> response) {
                             Log.i("==settingPhotoTask==",response.toString());
                             if (response.getCode()==BaseResponse.RESULT_CODE_SUCCESS){
-                                ShareUtil.saveTaskTime((int) (Double.parseDouble(time)*60*60*1000));
+                                ShareUtil.saveTaskTime((int) (Double.parseDouble(time)*60*1000));
                                 ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
                                 ShareUtil.saveCaptureQuality(quality);
                                 ToastUtils.showToast("设置成功,重新启动服务");
