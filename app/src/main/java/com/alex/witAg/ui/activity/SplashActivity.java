@@ -13,6 +13,7 @@ import com.alex.witAg.presenter.SplashPresenter;
 import com.alex.witAg.presenter.viewImpl.ISplashView;
 import com.alex.witAg.utils.AppMsgUtil;
 import com.alex.witAg.utils.ShareUtil;
+import com.alex.witAg.utils.ToastUtils;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -33,11 +34,19 @@ public class SplashActivity extends BaseActivity<SplashPresenter,ISplashView> im
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
+        restLocalMsg();
     }
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
 
+    }
+
+    public void restLocalMsg() {
+        ShareUtil.saveCaptureCamSta("0");
+        ShareUtil.saveCaptureErrorSta("0");
+        ShareUtil.saveDeviceStatue("0");
+        ShareUtil.saveDeviceError("0");
     }
 
     @Override

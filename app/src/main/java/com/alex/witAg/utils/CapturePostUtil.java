@@ -135,11 +135,11 @@ public class CapturePostUtil {
                     public void onSuccess(ResponseBody response) {
                         ToastUtils.showToast("图片:" + picName + "上传成功");
                         try {
+                            Log.i("==fileName==",picName);
                             //数据库删除文件名   删除文件
                             DataSupport.deleteAll(PicPathsBean.class, "path = ?", picName);
                             FileUtils.deleteFile(FileUtils.getFileFromSdcard(picName).getAbsolutePath());
                             findLocalPic();   //递归上传，每次上传第一张图片，完成后删除图片继续上传直到全部上传完毕。
-                            Log.i("==fileName==",picName);
                             //Log.i("==fileAbsName==",FileUtils.getFileFromSdcard(picName).getAbsolutePath());
                         }catch (Exception e){
                             e.printStackTrace();

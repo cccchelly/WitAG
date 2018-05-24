@@ -91,10 +91,10 @@ public class CaptureService extends Service {
                         toastOnMain("复位并关机");
                         taskQueue.add(new SeralTask(SerialInforStrUtil.getForceRestartStr()));  //复位关机
                         sleepMills(2 * 60 * 1000);
-                        App.setIsTaskRun(false);
                     }else {
                         toastOnMain("机器故障！忽略本次定时任务！");
                     }
+                    App.setIsTaskRun(false);
                     //toastOnMain("定时任务执行完毕");
                     Log.i(TAG, App.getIsTaskRun() + " ----completeCaptureTask");
                 }

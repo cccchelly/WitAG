@@ -16,6 +16,7 @@ import com.alex.witAg.taskqueue.SeralTask;
 import com.alex.witAg.taskqueue.TaskExecutor;
 import com.alex.witAg.taskqueue.TaskQueue;
 import com.alex.witAg.utils.AppMsgUtil;
+import com.alex.witAg.utils.AppUpdateUtil;
 import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
 import com.alex.witAg.utils.TaskServiceUtil;
@@ -52,8 +53,7 @@ public class MqttService extends Service {
     private String host = "tcp://59.110.240.44:1883";
     private String userName = "admin";
     private String passWord = "password";
-    private static String myTopic = "Device/DFS/cid867184036922874";
-            //+ AppMsgUtil.getIMEI(App.getAppContext());
+    private static String myTopic = "Device/DFS/cid" + AppMsgUtil.getIMEI(App.getAppContext());
     private String clientId = "test";
 
     @Override
@@ -224,6 +224,9 @@ public class MqttService extends Service {
         switch (cmd){
             case "task_rest"://重启定时任务
                 TaskServiceUtil.resetTasks();
+                break;
+            case "reset_app"://重启app
+                AppUpdateUtil.restartApp();
                 break;
             case "capture":   //执行相机拍照
                 capture(captureTaskUtil);

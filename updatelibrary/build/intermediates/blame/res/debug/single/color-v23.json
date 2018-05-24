@@ -1,23 +1,23 @@
 [
     {
-        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_color_highlight_material.xml"
-    },
-    {
         "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_seek_thumb.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_tint_seek_thumb.xml"
     },
     {
-        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
+        "merged": "D:\\zx\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_default.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_tint_default.xml"
     },
     {
-        "merged": "E:\\zxwitag\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c5eff55a950a17fd128eb295b854e465fc52918f\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
+        "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\c16a270e54f43b399e6cdbe748c0a99fe751bef4\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "E:\\WaTAGInport\\WitAG\\updatelibrary\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_spinner.xml",

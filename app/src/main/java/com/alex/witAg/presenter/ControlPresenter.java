@@ -98,12 +98,9 @@ public class ControlPresenter extends BasePresenter<IControlView> implements
 
     public void restLocalMsg() {
         ShareUtil.saveCaptureCamSta("0");
-        ShareUtil.saveCaptureHignSta("1");
         ShareUtil.saveCaptureErrorSta("0");
         ShareUtil.saveDeviceStatue("0");
         ShareUtil.saveDeviceError("0");
-        ShareUtil.saveDeviceBatvol("0");
-        ShareUtil.saveDeviceSunvol("0");
         ToastUtils.showToast("重置成功");
     }
 

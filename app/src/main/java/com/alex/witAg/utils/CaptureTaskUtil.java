@@ -342,7 +342,7 @@ public class CaptureTaskUtil implements
         boolean isOpen = false;
         for (int i=1; i<5*60;i++){    //查询状态是否改变  若状态未改变休眠一秒继续查询
             if (TextUtils.equals(ShareUtil.getDeviceStatue(),SerialInforStrUtil.STA_CLOSE_RESET)){ //sta=0表示复位关机状态
-                Log.i("==isCapOpen==",i+"");
+                //Log.i("==isCapOpen==",i+"");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
