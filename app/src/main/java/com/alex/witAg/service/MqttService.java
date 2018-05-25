@@ -17,6 +17,7 @@ import com.alex.witAg.taskqueue.TaskExecutor;
 import com.alex.witAg.taskqueue.TaskQueue;
 import com.alex.witAg.utils.AppMsgUtil;
 import com.alex.witAg.utils.AppUpdateUtil;
+import com.alex.witAg.utils.CapturePostUtil;
 import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
 import com.alex.witAg.utils.TaskServiceUtil;
@@ -228,6 +229,8 @@ public class MqttService extends Service {
             case "reset_app"://重启app
                 AppUpdateUtil.restartApp();
                 break;
+            case "": //上传本地图片
+                new Thread(() -> CapturePostUtil.findLocalPic()).start();
             case "capture":   //执行相机拍照
                 capture(captureTaskUtil);
                 break;
