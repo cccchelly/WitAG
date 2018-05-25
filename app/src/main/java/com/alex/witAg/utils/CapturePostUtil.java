@@ -8,6 +8,7 @@ import com.alex.witAg.AppContants;
 import com.alex.witAg.base.BaseObserver;
 import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.base.BaseResponseObserver;
+import com.alex.witAg.bean.GetTokenBean;
 import com.alex.witAg.bean.PicMessageBean;
 import com.alex.witAg.bean.PicPathsBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
@@ -45,7 +46,7 @@ public class CapturePostUtil {
             String path = picPaths.get(0).getPath();
             try{
                 File file = FileUtils.getFileFromSdcard(path);
-                postPic(file,path);
+                Login(file,path);   //重新获取token防止token失效
             }catch (NullPointerException e){
                 //未找到图片（如人为删除了图片），从数据库清除图片地址
                 //数据库删除文件名
@@ -84,6 +85,27 @@ public class CapturePostUtil {
                         QiNiuTokenBean qiNiuTokenBean = response.getData();
                         Log.i(TAG,"获取七牛token："+qiNiuTokenBean.toString());
                         postToQiNiu(file,picName,qiNiuTokenBean.getToken());
+                    }
+                });
+    }
+
+    private static void Login(File file, String picName){
+        //获取token
+        AppDataManager.getInstence(Net.URL_KIND_BASE)
+                .getToken(AppMsgUtil.getIMEI(App.getAppContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResponse<GetTokenBean>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<GetTokenBean> response) {
+                        Log.i("==gettoken==",response.toString());
+                        if (response.getCode()==BaseResponse.RESULT_CODE_SUCCESS){
+                            //得到token
+                            ShareUtil.saveToken(response.getData().getToken());
+                            postPic(file,picName);
+                        }else if (response.getCode()>0){
+                            //ToastUtils.showToast("获取token错误："+response.getMsg());
+                        }
                     }
                 });
     }
