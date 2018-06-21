@@ -13,7 +13,7 @@ import com.alex.witAg.utils.TimeUtils;
 public interface AppContants {
 
     String API_BASE_URL     = "http://59.110.240.44";   //线上
-     //String API_BASE_URL     = "http://172.168.21.33:9007";   //本地zy
+    //String API_BASE_URL     = "http://172.168.21.33:9007";   //本地zy
     //String API_BASE_URL     = "http://172.16.23.179:9007";   //本地xxl
     String CHECK_VERSION_URL = API_BASE_URL+"update/index";
     int    CONNECT_TIME_OUT = 15;

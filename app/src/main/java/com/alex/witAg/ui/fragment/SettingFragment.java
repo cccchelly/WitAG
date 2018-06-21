@@ -133,7 +133,9 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
                 }
                 break;
             case R.id.tv_check_update:
-                AppUpdateUtil.check(true, true, false, true, true, 998, App.getAppContext());    //检查新版本
+
+                AppUpdateUtil.check(true, true, false, true, true, 998, App.getAppContext(),true);    //检查新版本
+
                 break;
             case R.id.tv_warning_select:
                 //手动上传图片暂时放这里测试

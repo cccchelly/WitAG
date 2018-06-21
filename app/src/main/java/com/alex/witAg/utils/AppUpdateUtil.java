@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.alex.witAg.App;
@@ -37,51 +38,55 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class AppUpdateUtil {
     private static String TAG = AppUpdateUtil.class.getName();
+    public static boolean isNormalIns = true;
 
     static String mCheckUrl = "http://client.waimai.baidu.com/message/updatetag";
 
     static String mUpdateUrl = "http://p3o0oo73j.bkt.clouddn.com/witag.apk";
 
     public static void check(boolean isManual, final boolean hasUpdate, final boolean isForce, final boolean isSilent, final boolean isIgnorable, final int
-            notifyId, Context context) {
-            getVersionJsonStr(isManual,hasUpdate,isForce,isSilent,isIgnorable,
-            notifyId,context);
+            notifyId, Context context, boolean isNormalInstall) {
+        isNormalIns = isNormalInstall;
+        getVersionJsonStr(isManual, hasUpdate, isForce, isSilent, isIgnorable,
+                notifyId, context);
     }
 
     private static void getVersionJsonStr(boolean isManual, boolean hasUpdate, boolean isForce, boolean isSilent, boolean isIgnorable, int notifyId, Context context) {
         AppDataManager.getInstence(Net.URL_KIND_COMPANY)
-                .getVersion(ShareUtil.getToken(),AppMsgUtil.getVersionCode(context)+"")
+                .getVersion(ShareUtil.getToken(), AppMsgUtil.getVersionCode(context) + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<BaseResponse<UpdateMsgBean>>() {
                     @Override
                     public void onSuccess(BaseResponse<UpdateMsgBean> response) {
-                        Log.i("==version==",response.getData().toString());
-                        startCheck(isManual,hasUpdate,isForce,isSilent,isIgnorable,
-                                notifyId,context,response.getData().toString());
+                        Log.i("==version==", response.getData().toString());
+                        startCheck(isManual, hasUpdate, isForce, isSilent, isIgnorable,
+                                notifyId, context, response.getData().toString());
                     }
                 });
     }
 
-    private static void startCheck(boolean isManual, boolean hasUpdate, boolean isForce, boolean isSilent, boolean isIgnorable, int notifyId, Context context,String checkStr) {
+    private static void startCheck(boolean isManual, boolean hasUpdate, boolean isForce, boolean isSilent, boolean isIgnorable, int notifyId, Context context, String checkStr) {
         UpdateManager.create(context)
                 .setWifiOnly(false).setChecker(new IUpdateChecker() {
             @Override
             public void check(ICheckAgent agent, String url) {
-                Log.e("ezy.update", "url="+url);
+                Log.e("ezy.update", "url=" + url);
                 agent.setInfo(checkStr);
             }
         }).setUrl("url")
                 .setManual(isManual).setNotifyId(notifyId).setParser(new IUpdateParser() {
             @Override
             public UpdateInfo parse(String source) throws Exception {
-                Log.i(TAG,"parse");
-                Log.i("==version2==",source);
-                UpdateMsgBean msgBean = new Gson().fromJson(source,UpdateMsgBean.class);
+                Log.i(TAG, "parse");
+                Log.i("==version2==", source);
+                UpdateMsgBean msgBean = new Gson().fromJson(source, UpdateMsgBean.class);
                 //Log.i("==versionJson==",msgBean.toString());
                 UpdateInfo info = new UpdateInfo();
-                if (!hasUpdate){
+                if (!hasUpdate) {
                     ToastUtils.showToast("已是最新版本");
+                }else {
+                    ToastUtils.showToast("开始更新版本");
                 }
                 info.hasUpdate = hasUpdate;
 
@@ -102,7 +107,7 @@ public class AppUpdateUtil {
                 info.isForce = isForce;
                 info.isIgnorable = isIgnorable;
                 info.isSilent = isSilent;
-                info.isAutoInstall =true;
+                info.isAutoInstall = true;
                 return info;
             }
         })
@@ -113,14 +118,26 @@ public class AppUpdateUtil {
                         Intent ite = new Intent();
                         ite.setAction("install_and_start");
                         context.sendBroadcast(ite);
-                        AppUpdateUtil.install(context,file,force);
-                        Log.i("====install2",file.getAbsolutePath());
+                        if (isNormalIns) {    //如果是要求正常安装
+                            installNormal(context, file);
+                        } else {        //静默安装
+                            AppUpdateUtil.install(context, file, force);
+                        }
+
+                        Log.i("====install2", file.getAbsolutePath());
                     }
                 }).check();
     }
 
+    public static void installNormal(Context context, File file) {
+        Intent install = new Intent(Intent.ACTION_VIEW);
+        install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(install);
+    }
+
     public static void install(Context context, File file, boolean force) {
-        ApkController.install(file.getPath(),context);
+        ApkController.install(file.getPath(), context);
         //ApkController.startApp("com.alex.witAg","com.alex.witAg.ui.activity.SplashActivity");
 
         /*Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -137,7 +154,8 @@ public class AppUpdateUtil {
             System.exit(0);
         }
     }
-    public static void restartApp(){
+
+    public static void restartApp() {
         AlarmManager mgr = (AlarmManager) App.getAppContext().getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(App.getAppContext(), SplashActivity.class);
@@ -150,4 +168,5 @@ public class AppUpdateUtil {
         System.exit(0);
         System.gc();
     }
+
 }

@@ -20,7 +20,7 @@ public class UpdateService extends Service {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            AppUpdateUtil.check(true, true, false, true, true, 998, App.getAppContext());    //检查新版本
+            AppUpdateUtil.check(true, true, false, true, true, 998, App.getAppContext(),false);    //检查新版本
             mHandler.postDelayed(this, ShareUtil.getTaskTime()+60*60*1000);
         }
     };

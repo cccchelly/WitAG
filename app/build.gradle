@@ -40,6 +40,26 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+//            storeFile file(XINGKE_STORE_FILE)
+//            storePassword XINGKE_STORE_PASSWORD
+//            keyAlias XINGKE_KEY_ALIAS
+//            keyPassword XINGKE_KEY_PASSWORD
+            storeFile file("../witag.jks")
+            storePassword "witagwitag"
+            keyAlias "witagwitag"
+            keyPassword "witagwitag"
+        }
+
+       /* debug {
+            storeFile file("../witag.jks")
+            storePassword "witagwitag"
+            keyAlias "witagwitag"
+            keyPassword "witagwitag"
+        }*/
+    }
+
     buildTypes {
         release {
             minifyEnabled false

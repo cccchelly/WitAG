@@ -10,8 +10,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alex.witAg.App;
+import com.alex.witAg.base.BaseObserver;
+import com.alex.witAg.base.BaseResponse;
+import com.alex.witAg.bean.UpdateMsgBean;
+import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
 import com.alex.witAg.taskqueue.SeralTask;
 import com.alex.witAg.taskqueue.TaskQueue;
+import com.alex.witAg.utils.AppMsgUtil;
 import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.SerialInforStrUtil;
 import com.alex.witAg.utils.ShareUtil;
@@ -19,6 +25,9 @@ import com.alex.witAg.utils.TimeUtils;
 import com.alex.witAg.utils.ToastUtils;
 
 import java.text.SimpleDateFormat;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -42,7 +51,18 @@ public class CaptureService extends Service {
         @Override
         public void run() {
             mHandler.postDelayed(this, ShareUtil.getTaskTime());
-            ShareUtil.saveStartTaskTime(System.currentTimeMillis()+ShareUtil.getTaskTime());
+
+            /*AppDataManager.getInstence(Net.URL_KIND_COMPANY)
+                    .getVersion(ShareUtil.getToken(), AppMsgUtil.getVersionCode(App.getAppContext()) + "")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseObserver<BaseResponse<UpdateMsgBean>>() {
+                        @Override
+                        public void onSuccess(BaseResponse<UpdateMsgBean> response) {
+                            Log.i("==version==", response.getData().toString());
+                        }
+                    });*/
+
             Log.i("--capture--","capture_start");
             new Thread(new Runnable() {
                 @Override
@@ -100,6 +120,8 @@ public class CaptureService extends Service {
                 }
 
             }).start();
+
+            ShareUtil.saveStartTaskTime(System.currentTimeMillis()+ShareUtil.getTaskTime());
         }
     };
 

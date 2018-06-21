@@ -1,11 +1,16 @@
 package com.alex.witAg.ui.fragment;
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alex.witAg.App;
 import com.alex.witAg.R;
@@ -72,6 +78,9 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     TaskQueue taskQueue;
 
+    PowerManager pm;
+    PowerManager.WakeLock wakeLock;
+
     @Override
     protected void fetchData() {
 
@@ -79,6 +88,9 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     @Override
     protected void init(View view, @Nullable Bundle savedInstanceState) {
+        pm =  (PowerManager) (getActivity().getSystemService(Context.POWER_SERVICE));
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TAG");
+
         taskQueue = TaskQueue.getInstance();
 
         captureTaskUtil = CaptureTaskUtil.instance();
@@ -174,7 +186,9 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
         super.onDestroy();
     }
 
-    @OnClick({R.id.tv_decline, R.id.tv_take_photo, R.id.ic_reset, R.id.tv_serial, R.id.ic_open})
+
+    @OnClick({R.id.tv_decline, R.id.tv_take_photo, R.id.ic_reset, R.id.tv_serial, R.id.ic_open,
+    R.id.control_open,R.id.control_close})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
@@ -193,8 +207,16 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
             case R.id.tv_serial:
                 resetLocal();
                 break;
+            case R.id.control_open:
+
+                break;
+            case R.id.control_close:
+                Log.i("screen","close");
+                wakeLock.release();
+                break;
         }
     }
+
 
     private boolean isDeviceRun() {
         if (getPresenter().isRun) {
