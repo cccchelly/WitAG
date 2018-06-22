@@ -65,4 +65,11 @@
             android:layout_alignParentBottom="true"
             android:src="@drawable/qrcode"/>
     </RelativeLayout>
+    <TextView
+        android:id="@+id/about_imei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/main_color"
+        android:text="设备号"/>
 </LinearLayout>
